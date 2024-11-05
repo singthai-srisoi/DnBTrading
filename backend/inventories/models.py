@@ -7,17 +7,19 @@ from destinations.models import Destination
 # Create your models here.
 class Inventory(models.Model):
     date = models.DateField()
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.SET_NULL, null=True)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.SET_NULL, null=True, blank=True)
     driver = models.ForeignKey(
         Person, 
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         limit_choices_to={'type': 'driver'},
         related_name='driver')
     supplier = models.ForeignKey(
         Person, 
         on_delete=models.SET_NULL,
         null=True,
+        blank=True,
         limit_choices_to={'type': 'supplier'},
         related_name='supplier')
     
@@ -30,19 +32,19 @@ class Inventory(models.Model):
         null=True,
         limit_choices_to={'type': 'customer'},
         related_name='customer')
-    destination = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    destination = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
     ticket_no = models.CharField(max_length=100)
     do = models.CharField(max_length=100)
     weight_in = models.IntegerField(default=0)
     weight_out = models.IntegerField(default=0)
 
-    factory_nett = models.IntegerField(default=0) # weight_in - weight_out
+    factory_nett = models.IntegerField(default=0, null=True, blank=True) # weight_in - weight_out
     nett = models.IntegerField(default=0, null=True, blank=True) # factory_nett - deduction
 
-    deduction = models.IntegerField(default=0)
+    deduction = models.IntegerField(default=0, null=True, blank=True)
 
-    bucket = models.FloatField(default=0.0) # deduction / 20
+    bucket = models.FloatField(default=0.0, null=True, blank=True) # deduction / 20
 
     # new added fields
     # customer_ticket_no, factory_nett, bucket

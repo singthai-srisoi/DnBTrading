@@ -6,8 +6,8 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	let end_date = new Date()
 	let start_date = new Date(end_date.getFullYear(), end_date.getMonth(), 1)
 
-	let end_date_str = end_date.toLocaleDateString('en-CA')
-	let start_date_str = start_date.toLocaleDateString('en-CA')
+	let end_date_str = end_date.toLocaleDateString("en-CA")
+	let start_date_str = start_date.toLocaleDateString("en-CA")
 
 	let param = `start_date=${start_date_str}&end_date=${end_date_str}`
 
@@ -49,18 +49,62 @@ export const load: PageServerLoad = async ({ fetch }) => {
 export const actions = {
 	create: async ({ fetch, request }) => {
 		const data = await request.formData()
+		let json_data = JSON.parse(
+			JSON.stringify(Object.fromEntries(data.entries()))
+		)
+
+		json_data["ticket_no"] = json_data["ticket_no"] || "empty"
+		json_data["vehicle"] = json_data["vehicle"] || null
+		json_data["driver"] = json_data["driver"] || null
+		json_data["supplier"] = json_data["supplier"] || null
+		json_data["customer"] = json_data["customer"] || null
+		json_data["product"] = json_data["product"] || null
+		json_data["destination"] = json_data["destination"] || null
+		json_data["bucket"] = json_data["bucket"] || 0
+		json_data["deduction"] = json_data["deduction"] || 0
+		// DATE IF EMPTY WILL BE TODAT IN CA-EN
+		json_data["date"] = json_data["date"] || new Date().toLocaleDateString("en-CA")
+		console.log(json_data)
+
+		/**
+		 * {
+  ticket_no: '2344',
+  date: '2024-11-05',
+  vehicle: '28',
+  driver: '32',
+  supplier: '8',
+  customer_ticket_no: '23423',
+  supplier_qty: '234234',
+  customer: '11',
+  product: '10',
+  do: '234234',
+  destination: '',
+  weight_in: '234234',
+  weight_out: '2344',
+  factory_nett: '231890',
+  deduction: '0',
+  nett: '231890',
+  bucket: '',
+  remark: ''
+}
+		 */
 
 		const res = await fetch(getBackendURL("inventory"), {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(Object.fromEntries(data.entries())),
+			body: JSON.stringify(json_data),
+			// JSON.stringify(Object.fromEntries(data.entries())),
 		})
 
+		// return resposne from fetch
+		let text = await res.text()
+		console.log(text)
+
 		if (res.ok) {
-			const json = await res.json()
-			return { status: 200, body: json }
+			// const json = await res.json()
+			return { status: res.status, body: "success" }
 		}
 	},
 	update: async ({ fetch, request }) => {
