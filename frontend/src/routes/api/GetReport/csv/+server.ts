@@ -4,7 +4,7 @@ import { mkConfig, generateCsv, asString } from "export-to-csv";
 
 const csv_config = mkConfig({useKeysAsHeaders: true})
 
-export async function POST({ request, setHeaders }) {
+export async function POST({ request, setHeaders, fetch }) {
 	let scheme = await request.json()
 	scheme.fields = scheme.fields.filter((field: any) => field !== "id")
 	const res = await fetch(getBackendURL("report"), {

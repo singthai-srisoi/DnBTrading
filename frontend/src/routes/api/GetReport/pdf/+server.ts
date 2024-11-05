@@ -2,7 +2,7 @@ import getBackendURL from "$lib/utils/getBackendURL"
 import { json } from "@sveltejs/kit"
 import { GenerateReport } from "./helper"
 
-export async function POST({ request, setHeaders }) {
+export async function POST({ request, setHeaders, fetch }) {
 	let scheme = await request.json()
 	scheme.fields = scheme.fields.filter((field: any) => field !== "id")
 	// scheme.orient = "list"
