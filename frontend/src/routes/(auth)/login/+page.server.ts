@@ -23,9 +23,9 @@ export const actions = {
 				path: "/",
 				httpOnly: true,
 			})
-			redirect(301, "/home")
+			throw redirect(303, "/home")
 		}
 
-		redirect(301, "/login")
+		throw redirect(303, "/login")
 	},
 } satisfies Actions
