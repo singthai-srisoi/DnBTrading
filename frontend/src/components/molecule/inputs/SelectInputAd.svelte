@@ -139,6 +139,10 @@
 
     ReAssignValue()
 
+    async function clickOnEmptyButton() {
+        let button_ = choiceDiv.querySelector("button[data-value='']")
+        button_?.click()
+    }
     
 
 </script>
@@ -165,11 +169,13 @@
                 type="button"
                 data-value={choice.value}
                 on:click={async () => {
+                    await clickOnEmptyButton()
                     actual_value = choice.value
                     value = choice.label
                     choosen = true
                     label_text = choice.label
                     await hideChoices()
+                    await ReAssignValue()
                     show_choices = false
                 }}
                 class:selected={choice.value === actual_value}
