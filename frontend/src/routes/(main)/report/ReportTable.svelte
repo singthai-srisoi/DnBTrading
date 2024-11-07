@@ -218,12 +218,6 @@
         {/each}
     </div>
 
-    <div class="destination_options filter-group">
-        <h2>Destination</h2>
-        {#each options['destination_options'] as option }
-            <CheckBoxInput value={option.value} label={option.label} id={"destination_options"+option} name={"destination"} checked={true} onchange={OnFilterInput} />
-        {/each}
-    </div>
 
     <div class="vehicle_options filter-group">
         <h2>Vehicle</h2>

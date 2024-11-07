@@ -13,7 +13,6 @@
     export let driver_options: App.SelectInputType = []
     export let supplier_options: App.SelectInputType = []
     export let customer_options: App.SelectInputType = []
-    export let destination_options: App.SelectInputType = []
     export let product_options: App.SelectInputType = []
 
     let nett = ""
@@ -48,7 +47,6 @@
     <SelectInputAd label="Product" name="product" id="inventory_form_field_product" choices={product_options} />
     <TextInput type="text" label="DO" name="do" id="inventory_form_field_do" />
 
-    <SelectInputAd label="Destination" name="destination" id="inventory_form_field_destination" choices={destination_options} />
 
     <NumberInput label="Weight In" name="weight_in" id="inventory_form_field_weight_in" bind:value={weight_in} />
     <NumberInput label="Weight Out" name="weight_out" id="inventory_form_field_weight_out" bind:value={weight_out} />

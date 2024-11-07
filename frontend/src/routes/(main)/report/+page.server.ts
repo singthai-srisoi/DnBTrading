@@ -25,12 +25,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	data_ = await driver_options.json()
 	options.driver_options = data_
 
-	// destination and vehicle options
-	let destination_options = await fetch(
-		getBackendURL("destination", "get_options")
-	)
-	data_ = await destination_options.json()
-	options.destination_options = data_
+
 
 	let vehicle_options = await fetch(getBackendURL("vehicle", "get_options"))
 	data_ = await vehicle_options.json()

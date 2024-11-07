@@ -23,8 +23,6 @@ export const URLS = {
 	person_options_driver: `${BACKEND_BASE_URL}person_options/driver/`,
 	person_options_supplier: `${BACKEND_BASE_URL}person_options/supplier/`,
 
-	// === Destination ===
-	destination: `${BACKEND_BASE_URL}destinations/`,
 
 	//  === Inventory ===
 	inventory: `${BACKEND_BASE_URL}inventories/`,

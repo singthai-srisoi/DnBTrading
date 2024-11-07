@@ -31,12 +31,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	data_ = await driver_options.json()
 	data.driver_options = data_
 
-	// destination and vehicle options
-	let destination_options = await fetch(
-		getBackendURL("destination", "get_options")
-	)
-	data_ = await destination_options.json()
-	data.destination_options = data_
+
 
 	let vehicle_options = await fetch(getBackendURL("vehicle", "get_options"))
 	data_ = await vehicle_options.json()
@@ -59,35 +54,12 @@ export const actions = {
 		json_data["supplier"] = json_data["supplier"] || null
 		json_data["customer"] = json_data["customer"] || null
 		json_data["product"] = json_data["product"] || null
-		json_data["destination"] = json_data["destination"] || null
 		json_data["bucket"] = json_data["bucket"] || 0
 		json_data["deduction"] = json_data["deduction"] || 0
 		// DATE IF EMPTY WILL BE TODAT IN CA-EN
 		json_data["date"] = json_data["date"] || new Date().toLocaleDateString("en-CA")
-		console.log(json_data)
+		// console.log(json_data)
 
-		/**
-		 * {
-  ticket_no: '2344',
-  date: '2024-11-05',
-  vehicle: '28',
-  driver: '32',
-  supplier: '8',
-  customer_ticket_no: '23423',
-  supplier_qty: '234234',
-  customer: '11',
-  product: '10',
-  do: '234234',
-  destination: '',
-  weight_in: '234234',
-  weight_out: '2344',
-  factory_nett: '231890',
-  deduction: '0',
-  nett: '231890',
-  bucket: '',
-  remark: ''
-}
-		 */
 
 		const res = await fetch(getBackendURL("inventory"), {
 			method: "POST",
@@ -100,7 +72,7 @@ export const actions = {
 
 		// return resposne from fetch
 		let text = await res.text()
-		console.log(text)
+		// console.log(text)
 
 		if (res.ok) {
 			// const json = await res.json()
@@ -109,6 +81,8 @@ export const actions = {
 	},
 	update: async ({ fetch, request }) => {
 		const data = await request.formData()
+		// console.log('updating')
+		// console.log(Object.fromEntries(data.entries()))
 		const id = data.get("id") as string
 		if (!id) {
 			return { status: 400, body: { error: "id is required" } }

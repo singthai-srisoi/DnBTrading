@@ -2,7 +2,6 @@ from django.db import models
 from products.models import Product
 from vehicles.models import Vehicle
 from person.models import Person
-from destinations.models import Destination
 
 # Create your models here.
 class Inventory(models.Model):
@@ -32,9 +31,8 @@ class Inventory(models.Model):
         null=True,
         limit_choices_to={'type': 'customer'},
         related_name='customer')
-    destination = models.ForeignKey(Destination, on_delete=models.SET_NULL, null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
-    ticket_no = models.CharField(max_length=100)
+    ticket_no = models.CharField(max_length=100, unique=True)
     do = models.CharField(max_length=100)
     weight_in = models.IntegerField(default=0)
     weight_out = models.IntegerField(default=0)

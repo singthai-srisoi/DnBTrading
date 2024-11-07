@@ -15,6 +15,7 @@
     }
 
     function handleButton(event: Event) {
+        console.log('submitting EditForm')
         event.preventDefault()
         const button = event.currentTarget as HTMLButtonElement
         button.focus()
@@ -135,7 +136,7 @@ class Inventory(models.Model):
     export let driver_options: App.SelectInputType = []
     export let supplier_options: App.SelectInputType = []
     export let customer_options: App.SelectInputType = []
-    export let destination_options: App.SelectInputType = []
+    // export let destination_options: App.SelectInputType = []
     export let product_options: App.SelectInputType = []
 
     $: {
@@ -172,7 +173,7 @@ class Inventory(models.Model):
     <TextInput type="text" label="DO" name="do" id="inventory_form_field_do" value={data.do} />
 
     <!-- destination -->
-    <SelectInputAd label="Destination" name="destination" id="inventory_form_field_destination" choices={destination_options} actual_value={data.destination?.value ?? ""} />
+    <!-- <SelectInputAd label="Destination" name="destination" id="inventory_form_field_destination" choices={destination_options} actual_value={data.destination?.value ?? ""} /> -->
 
     <!-- weight in and weight out -->
     <NumberInput label="Weight In" name="weight_in" id="inventory_form_field_weight_in" bind:value={data.weight_in} />

@@ -4,7 +4,6 @@ from inventories.serializers import InventorySerializer, InventoryDataSerializer
 from products.models import Product, ProductType
 from vehicles.models import Vehicle
 from person.models import Person
-from destinations.models import Destination
 import json
 import pandas as pd
 import numpy as np
@@ -18,7 +17,7 @@ from django.db.models import Count, Sum, F, Q
 
 class ReportSchema:
     fields = InventoryDataSerializer().get_fields().keys()
-    grouping = ['product', 'driver', 'supplier', 'customer', 'destination', 'vehicle']
+    grouping = ['product', 'driver', 'supplier', 'customer', 'vehicle']
     convert_dict = {
         'id': int,
         'date': str,
@@ -64,7 +63,6 @@ class ReportSchema:
                 'customer': [],
                 'supplier': [],
                 'driver': [],
-                'destination': [],
                 'vehicle': [],
             },
             'orient': 'records',
@@ -83,8 +81,6 @@ class ReportSchema:
         if filter['filter_obj']:
             if filter['filter_obj']['product']:
                 query = query & ~Q(product__id__in=filter['filter_obj']['product'])
-            if filter['filter_obj']['destination']:
-                query = query & ~Q(destination__id__in=filter['filter_obj']['destination'])
             if filter['filter_obj']['vehicle']:
                 query = query & ~Q(vehicle__id__in=filter['filter_obj']['vehicle'])
             if filter['filter_obj']['supplier']:

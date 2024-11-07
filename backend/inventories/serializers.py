@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from . import models
-from destinations.serializers import DestinationOptionSerializer
 from vehicles.serializers import VehicleOptionSerializer
 from person.serializers import PersonOptionSerializer
 from products.serializers import ProductOptionSerializer
@@ -12,7 +11,6 @@ class InventorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class InventoryGetSerializer(serializers.ModelSerializer):
-    destination = DestinationOptionSerializer(read_only=True)
     vehicle = VehicleOptionSerializer(read_only=True)
     driver = PersonOptionSerializer(read_only=True)
     supplier = PersonOptionSerializer(read_only=True)
@@ -21,7 +19,7 @@ class InventoryGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Inventory
-        fields = ['id', 'date', 'vehicle', 'driver', 'supplier', 'customer_ticket_no', 'supplier_qty', 'customer', 'destination', 'product', 'ticket_no', 'do', 'weight_in', 'weight_out', 'factory_nett', 'nett', 'deduction', 'bucket', 'remark']
+        fields = ['id', 'date', 'vehicle', 'driver', 'supplier', 'customer_ticket_no', 'supplier_qty', 'customer', 'product', 'ticket_no', 'do', 'weight_in', 'weight_out', 'factory_nett', 'nett', 'deduction', 'bucket', 'remark']
 
     def get_fields(self):
         ...

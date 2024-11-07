@@ -1,6 +1,6 @@
 <script lang="ts">
 	import InventoryForm from "$components/forms/InventoryForm.svelte"
-    import InventoryEditForm from "$components/forms/InventoryEditForm.svelte"
+    import InventoryEditForm2 from "$components/forms/InventoryEditForm2.svelte"
     import DataGrid from "$components/molecule/datagrid/DataGrid.svelte"
 	import type { PageData } from "./$types"
 	import InventoryDeleteForm from "$components/forms/InventoryDeleteForm.svelte"
@@ -35,7 +35,6 @@
     driver_options={data.driver_options}
     supplier_options={data.supplier_options}
     customer_options={data.customer_options}
-    destination_options={data.destination_options}
     product_options={data.product_options}
 />
 
@@ -76,11 +75,6 @@
         {
             name: "customer",
             label: "Customer",
-            details: true,
-        },
-        {
-            name: "destination",
-            label: "Destination",
             details: true,
         },
         {
@@ -135,12 +129,11 @@
 <DateInputAd name="end_date" label="End Date" bind:value={end_date} id="end_date_search" />
 </svelte:fragment>
 <svelte:fragment let:edit let:emptyEdit slot="editForm">
-    <InventoryEditForm data={edit} on:putSubmitted={emptyEdit} 
+    <InventoryEditForm2 data={edit} on:putSubmitted={emptyEdit} 
         vehicle_options={data.vehicle_options}
         driver_options={data.driver_options}
         supplier_options={data.supplier_options}
         customer_options={data.customer_options}
-        destination_options={data.destination_options}
         product_options={data.product_options}
     />
 </svelte:fragment>

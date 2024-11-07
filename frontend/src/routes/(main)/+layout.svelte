@@ -51,11 +51,6 @@
         <MenuItem href="/vehicle" icon="" text="vehicle" active={$page.url.pathname == "/vehicle"} />
 
         <MenuDivider />
-        <MenuTitle text="📍 Destination" />
-        <MenuDivider />
-        <MenuItem href="/destination" icon="" text="destination" active={$page.url.pathname == "/destination"} />
-
-        <MenuDivider />
         <MenuTitle text="🧺 Inventory" />
         <MenuDivider />
         <MenuItem href="/inventory" icon="" text="inventory" active={$page.url.pathname == "/inventory"} />
