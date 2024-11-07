@@ -137,7 +137,12 @@ class ReportDataViewSet(views.APIView, ReportSchema):
         group_by = filter['group_by']
         # print(group_by)
         if group_by and group_by in self.grouping:
-            agg = pd.DataFrame(df.groupby(group_by).agg({'weight_in': 'sum', 'weight_out': 'sum', 'nett': 'sum'}))
+            agg = pd.DataFrame(df.groupby(group_by).agg({
+                'factory_nett': 'sum', 
+                'bucket': 'sum', 
+                'nett': 'sum',
+                'deduction': 'sum',
+            }))
             agg_sum = pd.DataFrame(agg.sum())
             total = pd.concat([agg, agg_sum.T]).rename(index={0: 'Total'})
             total["sort"] = "1"
@@ -145,13 +150,16 @@ class ReportDataViewSet(views.APIView, ReportSchema):
             indexed = df.set_index(group_by)
             indexed['sort'] = "0"
 
-            final = pd.concat([indexed,total]).reset_index(names=[group_by]).sort_values(by=[group_by,'sort'])
-            final.drop(columns=['sort'], inplace=True)
+            final = pd.concat([indexed,total]).reset_index(names=[group_by]).sort_values(by=[group_by,'sort','id'])
+            final.drop(columns=['sort', 'id'], inplace=True)
             final.replace({np.nan: ''}, inplace=True)
 
             df = final
 
-        orient = filter.get('orient', 'records')
+        orient = filter.get('orient', 'records')      
+        if 'id' in df.columns:
+            df.sort_values(by='id', inplace=True)
+            df.drop(columns=['id'], inplace=True)
         df_json = df.to_dict(orient=orient)
         # df_csv = df.to_csv(index=False)
 
@@ -195,7 +203,12 @@ class HomePageOverviewViewSet(views.APIView, ReportSchema):
         group_by = filter['group_by']
         # print(group_by)
         if group_by and group_by in self.grouping:
-            final = pd.DataFrame(df.groupby(group_by).agg({'weight_in': 'sum', 'weight_out': 'sum', 'nett': 'sum'})).reset_index()
+            final = pd.DataFrame(df.groupby(group_by).agg({
+                'factory_nett': 'sum', 
+                'bucket': 'sum', 
+                'nett': 'sum',
+                'deduction': 'sum',
+            })).reset_index()
             df = final
 
         orient = filter.get('orient', 'records')

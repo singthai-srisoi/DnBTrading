@@ -4,7 +4,7 @@ import { json } from "@sveltejs/kit"
 
 export async function POST({ request, fetch }) {
 	let scheme = await request.json()
-    scheme.fields = scheme.fields.filter((field: any) => field !== "id")
+    // scheme.fields = scheme.fields.filter((field: any) => field !== "id")
     const res = await fetch(getBackendURL("report"), {
         method: "POST",
         headers: {

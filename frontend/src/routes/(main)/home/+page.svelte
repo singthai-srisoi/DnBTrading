@@ -85,6 +85,22 @@
 			<h2>{item[schema.group_by] == "" ? "(Empty)" : item[schema.group_by]}</h2>
 			<hr />
 			<table>
+				<!-- 'factory_nett': 'sum', 
+                'bucket': 'sum', 
+                'nett': 'sum',
+                'deduction': 'sum', -->
+					<tr>
+						<th>Total Factory Nett</th>
+						<td>{item["factory_nett"]}</td>
+					</tr>
+					<tr>
+						<th>Total Bucket</th>
+						<td>{item["bucket"]}</td>
+					</tr>
+					<tr>
+						<th>Total Deduction</th>
+						<td>{item["deduction"]}</td>
+					</tr>
 					<tr>
 						<th>Total Nett</th>
 						<td>{item["nett"]}</td>

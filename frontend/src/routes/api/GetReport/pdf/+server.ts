@@ -4,7 +4,7 @@ import { GenerateReport } from "./helper"
 
 export async function POST({ request, setHeaders, fetch }) {
 	let scheme = await request.json()
-	scheme.fields = scheme.fields.filter((field: any) => field !== "id")
+	// scheme.fields = scheme.fields.filter((field: any) => field !== "id")
 	// scheme.orient = "list"
 	const res = await fetch(getBackendURL("report"), {
 		method: "POST",
