@@ -56,6 +56,8 @@ export const actions = {
 		json_data["product"] = json_data["product"] || null
 		json_data["bucket"] = json_data["bucket"] || 0
 		json_data["deduction"] = json_data["deduction"] || 0
+		// supplier quantity
+		json_data["supplier_qty"] = json_data["supplier_qty"] || 0
 		// DATE IF EMPTY WILL BE TODAT IN CA-EN
 		json_data["date"] = json_data["date"] || new Date().toLocaleDateString("en-CA")
 		// console.log(json_data)
@@ -72,10 +74,10 @@ export const actions = {
 
 		// return resposne from fetch
 		let text = await res.text()
-		// console.log(text)
+		console.log(text)
+		return { status: res.status, body: text }
 
 		if (res.ok) {
-			// const json = await res.json()
 			return { status: res.status, body: "success" }
 		}
 	},
