@@ -84,6 +84,15 @@
         let name = target.getAttribute('name')
         if (!name) return
         // console.log('triggered prod')
+        const all = ["product_select_all", "customer_select_all", "supplier_select_all", "driver_select_all", "vehicle_select_all"]
+        if (all.includes(name)) {
+            name = name.replace("_select_all", "")
+            let checkboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll(`input[type="checkbox"][name="${name}"]:not(#group-by-filter${name})`)
+            for (let checkbox of checkboxes) {
+                checkbox.checked = target.checked
+                scheme['filter_obj'][name] = target.checked ? [] : options[`${name}_options`].map((option: { value: number }) => Number(option.value))
+            }
+        }
         if (!target.checked) {
             scheme['filter_obj'][name] = [...scheme['filter_obj'][name], Number(target.value)]
         } else {
@@ -166,7 +175,7 @@
     }
     //#endregion
 
-    // $: console.log(scheme)
+    $: console.log(scheme)
     // $: console.log(Object.keys(options))
 </script>
 
@@ -181,7 +190,7 @@
     <div class="group-by-filter filter-group" bind:this={group_by_div}>
         <h2>Grouping</h2>
         {#each scheme['grouping'] as group }
-            <CheckBoxInput label={group} id={"group-by-filte"+group} name={group} oninput={OnInputGroupBy} />
+            <CheckBoxInput label={group} id={"group-by-filter"+group} name={group} oninput={OnInputGroupBy} />
         {/each}
     </div>
     <!-- fields -->
@@ -193,12 +202,14 @@
     </div> -->
     <div class="product_options filter-group">
         <h2>Product</h2>
+        <CheckBoxInput value="" label="All" id="product_options_all" name="product_select_all" checked={true} onchange={OnFilterInput} />
         {#each options['product_options'] as option }
             <CheckBoxInput value={option.value} label={option.label} id={"product_options"+option} name={"product"} checked={true} onchange={OnFilterInput} />
         {/each}
     </div>
     <div class="customer_options filter-group">
         <h2>Customer</h2>
+        <CheckBoxInput value="" label="All" id="customer_options_all" name="customer_select_all" checked={true} onchange={OnFilterInput} />
         {#each options['customer_options'] as option }
             <CheckBoxInput value={option.value} label={option.label} id={"customer_options"+option} name={"customer"} checked={true} onchange={OnFilterInput} />
         {/each}
@@ -206,6 +217,7 @@
 
     <div class="supplier_options filter-group">
         <h2>Supplier</h2>
+        <CheckBoxInput value="" label="All" id="supplier_options_all" name="supplier_select_all" checked={true} onchange={OnFilterInput} />
         {#each options['supplier_options'] as option }
             <CheckBoxInput value={option.value} label={option.label} id={"supplier_options"+option} name={"supplier"} checked={true} onchange={OnFilterInput} />
         {/each}
@@ -213,14 +225,14 @@
 
     <div class="driver_options filter-group">
         <h2>Driver</h2>
+        <CheckBoxInput value="" label="All" id="driver_options_all" name="driver_select_all" checked={true} onchange={OnFilterInput} />
         {#each options['driver_options'] as option }
             <CheckBoxInput value={option.value} label={option.label} id={"driver_options"+option} name={"driver"} checked={true} onchange={OnFilterInput} />
         {/each}
     </div>
-
-
     <div class="vehicle_options filter-group">
         <h2>Vehicle</h2>
+        <CheckBoxInput value="" label="All" id="vehicle_options_all" name="vehicle_select_all" checked={true} onchange={OnFilterInput} />
         {#each options['vehicle_options'] as option }
             <CheckBoxInput value={option.value} label={option.label} id={"vehicle_options"+option} name={"vehicle"} checked={true} onchange={OnFilterInput} />
         {/each}
