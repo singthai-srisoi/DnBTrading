@@ -52,8 +52,7 @@
 
         // check button type
         const button = e.target as HTMLButtonElement
-        if (button.type === "reset") {
-            searchForm.reset()
+        if (button.type === "button") {
             search = ""
         }
 
@@ -101,8 +100,8 @@
         <form bind:this={searchForm}>
             <slot name="searchForm" {search} />
             <TextInput name="search" label="Search" id="search_input" bind:value={search} />
-            <Button classes="success" onClick={searchLoad}>Search</Button>
-            <Button classes="warning" type="reset" onClick={searchLoad}>Reset</Button>
+            <Button classes="success" type="submit" onClick={searchLoad}>Search</Button>
+            <Button classes="warning" type="button" onClick={searchLoad}>Reset</Button>
         </form>
     </div>
     {#if data[dataKey]?.length > 0}    
