@@ -26,7 +26,7 @@
     $: {
         nett = String((parseFloat(weight_in) || 0) - (parseFloat(weight_out) || 0) - (parseFloat(deduction) || 0))
         factory_nett = String((parseFloat(weight_in) || 0) - (parseFloat(weight_out) || 0))
-        bucket = String((parseFloat(deduction) || 0) / 20)
+        // bucket = String((parseFloat(deduction) || 0) / 20)
     }
 </script>
 <Form method="post" {action} size="lg">

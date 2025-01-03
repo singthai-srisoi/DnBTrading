@@ -73,7 +73,7 @@
     $: {
         data.factory_nett = String((parseFloat(data.weight_in) || 0) - (parseFloat(data.weight_out) || 0))
         data.nett = String((parseFloat(data.weight_in) || 0) - (parseFloat(data.weight_out) || 0) - (parseFloat(data.deduction) || 0))
-        data.bucket = String((parseFloat(data.deduction) || 0) / 20)
+        // data.bucket = String((parseFloat(data.deduction) || 0) / 20)
         data = data
     }
 
