@@ -33,7 +33,7 @@ class InventoryGetSerializer(serializers.ModelSerializer):
 
 
 class InventoryDataSerializer(serializers.ModelSerializer):
-    destination = serializers.StringRelatedField()
+    # destination = serializers.StringRelatedField()
     vehicle = serializers.StringRelatedField()
     driver = serializers.StringRelatedField()
     supplier = serializers.StringRelatedField()

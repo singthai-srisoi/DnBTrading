@@ -9,7 +9,7 @@ from . import serializers
 
 class VehicleViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
-    queryset = models.Vehicle.objects.all().order_by('-id')
+    queryset = models.Vehicle.objects.all()
     serializer_class = serializers.VehicleSerializer
 
     def get_queryset(self):
@@ -30,7 +30,7 @@ class VehicleViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'], url_path='get_options')
     def get_options(self, request):
-        queryset = self.queryset
+        queryset = self.get_queryset()
         serializer = serializers.VehicleOptionSerializer(data=queryset, many=True)
         serializer.is_valid()
         return Response(serializer.data)
