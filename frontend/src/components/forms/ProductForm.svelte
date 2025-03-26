@@ -14,7 +14,7 @@
     <h1>Product</h1>
     <TextInput type="text" label="Code" name="code" id="product_form_field_code" required />
     <TextInput type="text" label="Name" name="name" id="product_form_field_name" required />
-    <NumberInput label="Price" name="price" id="product_form_field_price" min={0} max={99999999999999999} />
+    <NumberInput label="Price" name="price" id="product_form_field_price" value={"0"} min={0} max={99999999999999999} />
     <!-- <SelectInput label="Type" name="type" id="product_form_field_type" choices={type_options} /> -->
     <!-- <SelectInput2 label="Type" name="type" items={type_options} id="product_form_field_type" /> -->
      <SelectInputAd label="Type" name="type" id="product_form_field_type" choices={type_options} />

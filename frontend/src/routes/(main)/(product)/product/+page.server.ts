@@ -8,6 +8,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 
 	const options = await fetch(getBackendURL("product_type", "get_options"))
 	const optionsData = await options.json()
+	console.log({optionsData})
 	data.options = optionsData
 	return data
 }
@@ -28,6 +29,9 @@ export const actions = {
 			const json = await res.json()
 			return { status: 200, body: json }
 		}
+
+		const text = await res.text()
+		return { status: res.status, body: { error: text } }
 	},
 	update: async ({ fetch, request }) => {
 		const data = await request.formData()

@@ -32,10 +32,7 @@
         code: "",
         name: "",
         price: 0,
-        type: {
-            label: "",
-            value: "",
-        }
+        type: null,
     }
     export let type_options: App.SelectInputType = []
 
@@ -46,7 +43,7 @@
     <TextInput type="text" label="Code" name="code" id="product_form_edit_field_code" required value={data.code} />
     <TextInput type="text" label="Name" name="name" id="product_form_edit_field_name" required value={data.name} />
     <NumberInput label="Price" name="price" id="product_form_edit_field_price" min={0} max={99999999999999999} value={data.price?.toString()} />
-    <SelectInputAd label="Type" name="type" id="product_form_edit_field_type" choices={type_options} actual_value={data.type.value} />
+    <SelectInputAd label="Type" name="type" id="product_form_edit_field_type" choices={type_options} actual_value={data.type?.value ?? ''} />
 
     <Button type="submit" classes="primary" onClick={handleButton}>Submit</Button>
 </Form>
