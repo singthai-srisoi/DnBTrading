@@ -147,6 +147,93 @@ function transformDataWithSubtotals(data: ReportRow[]): string[][] {
 
 	return body
 }
+function transformDataWithStyledSubtotals(data: ReportRow[]): any[] {
+	const headers = [
+		"Date", "Vehicle", "Driver", "Supplier", "Customer", "Product", "Ticket No",
+		"Customer Ticket No", "DO", "Weight In", "Weight Out", "Supplier Qty",
+		"Factory Nett", "Nett", "Deduction", "Bucket", "Remark"
+	]
+
+	const suppliers = new Map<string, ReportRow[]>()
+	for (const row of data) {
+		if (!suppliers.has(row.supplier)) suppliers.set(row.supplier, [])
+		suppliers.get(row.supplier)!.push(row)
+	}
+
+	let grandTotals = {
+		supplier_qty: 0,
+		factory_nett: 0,
+		nett: 0,
+		deduction: 0,
+	}
+
+	let tableBody: any[] = [
+		headers.map((h) => ({ text: h, bold: true, fillColor: "#cccccc" }))
+	]
+
+	for (const [supplier, rows] of suppliers) {
+		for (const row of rows) {
+			tableBody.push([
+				row.date, row.vehicle, row.driver, row.supplier, row.customer, row.product,
+				row.ticket_no, row.customer_ticket_no, row.do,
+				row.weight_in.toString(), row.weight_out.toString(),
+				row.supplier_qty.toString(),
+				row.factory_nett.toString(),
+				row.nett.toString(),
+				row.deduction.toString(),
+				row.bucket.toString(), row.remark
+			])
+			// Accumulate for grand total
+			grandTotals.supplier_qty += row.supplier_qty
+			grandTotals.factory_nett += row.factory_nett
+			grandTotals.nett += row.nett
+			grandTotals.deduction += row.deduction
+		}
+
+		const subtotal = rows.reduce(
+			(acc, row) => ({
+				supplier_qty: acc.supplier_qty + row.supplier_qty,
+				factory_nett: acc.factory_nett + row.factory_nett,
+				nett: acc.nett + row.nett,
+				deduction: acc.deduction + row.deduction
+			}),
+			{ supplier_qty: 0, factory_nett: 0, nett: 0, deduction: 0 }
+		)
+
+		// Subtotal row with styling
+		tableBody.push([
+			{ text: `Subtotal for ${supplier}`, colSpan: 11, bold: true, fillColor: "#f0f0f0", border: [true, true, true, true] },
+			{}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+			{ text: subtotal.supplier_qty.toString(), bold: true },
+			{ text: subtotal.factory_nett.toString(), bold: true },
+			{ text: subtotal.nett.toString(), bold: true },
+			{ text: subtotal.deduction.toString(), bold: true },
+			"", ""
+		])
+	}
+
+	// Grand Total row with styling
+	tableBody.push([
+		{ text: "GRAND TOTAL", colSpan: 11, bold: true, fillColor: "#dfe6e9", border: [true, true, true, true] },
+		{}, {}, {}, {}, {}, {}, {}, {}, {}, {},
+		{ text: grandTotals.supplier_qty.toString(), bold: true },
+		{ text: grandTotals.factory_nett.toString(), bold: true },
+		{ text: grandTotals.nett.toString(), bold: true },
+		{ text: grandTotals.deduction.toString(), bold: true },
+		"", ""
+	])
+
+	return [
+		{
+			table: {
+				headerRows: 1,
+				widths: Array(headers.length).fill("auto"),
+				body: tableBody
+			},
+			layout: "lightHorizontalLines"
+		}
+	]
+}
 
 // const tableData = transformDataWithSubtotals(reportData)
 // const pdfBlob = await GenerateReport(tableData)
