@@ -147,7 +147,7 @@ function transformDataWithSubtotals(data: ReportRow[]): string[][] {
 
 	return body
 }
-function transformDataWithStyledSubtotals(data: ReportRow[]): any[] {
+export function transformDataWithStyledSubtotals(data: ReportRow[]): string[][] {
 	const headers = [
 		"Date", "Vehicle", "Driver", "Supplier", "Customer", "Product", "Ticket No",
 		"Customer Ticket No", "DO", "Weight In", "Weight Out", "Supplier Qty",
@@ -223,16 +223,17 @@ function transformDataWithStyledSubtotals(data: ReportRow[]): any[] {
 		"", ""
 	])
 
-	return [
-		{
-			table: {
-				headerRows: 1,
-				widths: Array(headers.length).fill("auto"),
-				body: tableBody
-			},
-			layout: "lightHorizontalLines"
-		}
-	]
+	// return [
+	// 	{
+	// 		table: {
+	// 			headerRows: 1,
+	// 			widths: Array(headers.length).fill("auto"),
+	// 			body: tableBody
+	// 		},
+	// 		layout: "lightHorizontalLines"
+	// 	}
+	// ]
+	return tableBody
 }
 
 // const tableData = transformDataWithSubtotals(reportData)

@@ -1,6 +1,6 @@
 import getBackendURL from "$lib/utils/getBackendURL"
 import { json } from "@sveltejs/kit"
-import { GenerateReport } from "./helper"
+import { GenerateReport, transformDataWithStyledSubtotals } from "./helper"
 
 export async function POST({ request, setHeaders, fetch }) {
 	let scheme = await request.json()
@@ -22,17 +22,18 @@ export async function POST({ request, setHeaders, fetch }) {
 	 * Change [{columns -> row}]
 	 * into [[columns...], [row1...], [row2...], ...]
 	 */
-	let keys = Object.keys(data.data[0])
-	let new_data = [keys]
+	// let keys = Object.keys(data.data[0])
+	// let new_data = [keys]
 
-	for (let row of data.data) {
-		let new_row = []
-		for (let key of keys) {
-			new_row.push(row[key])
-		}
-		new_data.push(new_row)
-	}
-
+	// for (let row of data.data) {
+	// 	let new_row = []
+	// 	for (let key of keys) {
+	// 		new_row.push(row[key])
+	// 	}
+	// 	new_data.push(new_row)
+	// }
+	let new_data = transformDataWithStyledSubtotals(data.data)
+	// console.log({new_data})
 	let doc = await GenerateReport(new_data)
 	setHeaders({
 		"Content-Type": "application/pdf",

@@ -15,7 +15,7 @@
     }
 
     function handleButton(event: Event) {
-        console.log('submitting EditForm')
+        // console.log('submitting EditForm')
         event.preventDefault()
         const button = event.currentTarget as HTMLButtonElement
         button.focus()
