@@ -4,7 +4,8 @@
     export let id: string
 
     export let data: {[k:string]:any}[]
-    let keys = Object.keys(data[0])
+    // let keys = Object.keys(data[0])
+    $: keys = data && data.length > 0 ? Object.keys(data[0]) : []
 </script>
 
 {#if data && data.length > 0}

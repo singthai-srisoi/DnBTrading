@@ -36,6 +36,7 @@
     supplier_options={data.supplier_options}
     customer_options={data.customer_options}
     product_options={data.product_options}
+    last_selected_unit={data.last_selected_unit.unit}
 />
 
 <DataGrid
@@ -117,7 +118,11 @@
         {
             name: "remark",
             label: "Remark",
-        }
+        },
+        {
+            name: "unit",
+            label: "Unit",
+        },
     ]}
 
     {data}

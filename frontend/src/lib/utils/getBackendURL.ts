@@ -26,6 +26,7 @@ export const URLS = {
 
 	//  === Inventory ===
 	inventory: `${BACKEND_BASE_URL}inventories/`,
+	last_selected_unit: `${BACKEND_BASE_URL}last-selected-unit/`,
 
 	// === Report ===
 	report: `${BACKEND_BASE_URL}report/`,

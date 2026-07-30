@@ -177,6 +177,7 @@
 
     $: console.log(scheme)
     // $: console.log(Object.keys(options))
+    $: console.log(data.data)
 </script>
 
 <Card size="lg">
@@ -186,6 +187,21 @@
         <h2>Date</h2>
         <DateInputAd label="start_date" name="start_date" id="filter_start_date" bind:value={scheme.start_date} />
         <DateInputAd label="end_date" name="end_date" id="filter_end_date" bind:value={scheme.end_date} />
+    </div>
+    <div class="date-filter filter-group">
+        <h2>Unit</h2>
+        <label for="unit_none">
+            <input type="radio" name="use_unit" id="unit_none" value="" bind:group={scheme.use_unit} />
+            --
+        </label>
+        <label for="unit_kg">
+            <input type="radio" name="use_unit" id="unit_kg" value="kg" bind:group={scheme.use_unit} />
+            KG
+        </label>
+        <label for="unit_ton">
+            <input type="radio" name="use_unit" id="unit_ton" value="ton" bind:group={scheme.use_unit} />
+            TON
+        </label>
     </div>
     <div class="group-by-filter filter-group" bind:this={group_by_div}>
         <h2>Grouping</h2>

@@ -37,6 +37,11 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	data_ = await vehicle_options.json()
 	data.vehicle_options = data_
 
+	let last_selected_unit = await fetch(getBackendURL("last_selected_unit"))
+	data_ = await last_selected_unit.json()
+	// console.log(data_);
+	data.last_selected_unit = data_
+
 	// console.log(data)
 	return data
 }
@@ -75,6 +80,16 @@ export const actions = {
 		// return resposne from fetch
 		let text = await res.text()
 		console.log(text)
+
+		// update last selected unit
+		const unit = await fetch(getBackendURL("last_selected_unit"), {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ unit: json_data["unit"] }),
+		})
+
 		return { status: res.status, body: text }
 
 		if (res.ok) {
