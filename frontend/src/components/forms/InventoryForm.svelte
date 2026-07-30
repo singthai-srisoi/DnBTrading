@@ -41,7 +41,7 @@
 
     <SelectInputAd label="Supplier" name="supplier" id="inventory_form_field_supplier" choices={supplier_options} />
     <TextInput type="text" label="Customer Ticket No" name="customer_ticket_no" id="inventory_form_field_customer_ticket_no" />
-    <NumberInput label="Supplier Qty" name="supplier_qty" id="inventory_form_field_supplier_qty" step={0.01} />
+    <NumberInput label="Supplier Qty" name="supplier_qty" id="inventory_form_field_supplier_qty" step={0.001} />
 
     <SelectInputAd label="Customer" name="customer" id="inventory_form_field_customer" choices={customer_options} />
 
@@ -49,14 +49,14 @@
     <TextInput type="text" label="DO" name="do" id="inventory_form_field_do" />
 
 
-    <NumberInput label="Weight In" name="weight_in" id="inventory_form_field_weight_in" bind:value={weight_in} step={0.01} />
-    <NumberInput label="Weight Out" name="weight_out" id="inventory_form_field_weight_out" bind:value={weight_out} step={0.01} />
+    <NumberInput label="Weight In" name="weight_in" id="inventory_form_field_weight_in" bind:value={weight_in} step={0.001} />
+    <NumberInput label="Weight Out" name="weight_out" id="inventory_form_field_weight_out" bind:value={weight_out} step={0.001} />
 
-    <NumberInput label="Factory Nett" name="factory_nett" id="inventory_form_field_factory_nett" bind:value={factory_nett} step={0.01} />
-    <NumberInput label="Deduction" name="deduction" id="inventory_form_field_deduction" bind:value={deduction} step={0.01} />
-    <NumberInput label="Nett" name="nett" id="inventory_form_field_nett" bind:value={nett} step={0.01} />
+    <NumberInput label="Factory Nett" name="factory_nett" id="inventory_form_field_factory_nett" bind:value={factory_nett} step={0.001} />
+    <NumberInput label="Deduction" name="deduction" id="inventory_form_field_deduction" bind:value={deduction} step={0.001} />
+    <NumberInput label="Nett" name="nett" id="inventory_form_field_nett" bind:value={nett} step={0.001} />
 
-    <NumberInput label="Bucket" name="bucket" id="inventory_form_field_bucket" bind:value={bucket} step={0.01} />
+    <NumberInput label="Bucket" name="bucket" id="inventory_form_field_bucket" bind:value={bucket} step={0.001} />
 
     <TextInput type="text" label="Remark" name="remark" id="inventory_form_field_remark" />
     <SelectInputAd label="Unit" name="unit" id="inventory_form_field_unit" choices={[

@@ -87,19 +87,19 @@
     <SelectInputAd label="Driver" name="driver" id="inventory_form_edit_field_driver" choices={driver_options} actual_value={data.driver?.value??""} />
     <SelectInputAd label="Supplier" name="supplier" id="inventory_form_edit_field_supplier" choices={supplier_options} actual_value={data.supplier?.value??""} />
     <TextInput type="text" label="Customer Ticket No" name="customer_ticket_no" id="inventory_form_edit_field_customer_ticket_no" value={data.customer_ticket_no} />
-    <NumberInput label="Supplier Qty" name="supplier_qty" id="inventory_form_edit_field_supplier_qty" value={data.supplier_qty} step={0.01} />
+    <NumberInput label="Supplier Qty" name="supplier_qty" id="inventory_form_edit_field_supplier_qty" value={data.supplier_qty} step={0.001} />
 
     <SelectInputAd label="Customer" name="customer" id="inventory_form_edit_field_customer" choices={customer_options} actual_value={data.customer?.value??""} />
     <SelectInputAd label="Product" name="product" id="inventory_form_edit_field_product" choices={product_options} actual_value={data.product?.value??""} />
     <TextInput type="text" label="DO" name="do" id="inventory_form_edit_field_do" value={data.do} />
 
-    <NumberInput label="Weight In" name="weight_in" id="inventory_form_edit_field_weight_in" bind:value={data.weight_in} step={0.01} />
-    <NumberInput label="Weight Out" name="weight_out" id="inventory_form_edit_field_weight_out" bind:value={data.weight_out} step={0.01} />
+    <NumberInput label="Weight In" name="weight_in" id="inventory_form_edit_field_weight_in" bind:value={data.weight_in} step={0.001} />
+    <NumberInput label="Weight Out" name="weight_out" id="inventory_form_edit_field_weight_out" bind:value={data.weight_out} step={0.001} />
 
-    <NumberInput label="Factory Nett" name="factory_nett" id="inventory_form_edit_field_factory_nett" bind:value={data.factory_nett} step={0.01} />
-    <NumberInput label="Deduction" name="deduction" id="inventory_form_edit_field_deduction" bind:value={data.deduction} step={0.01} />
-    <NumberInput label="Nett" name="nett" id="inventory_form_edit_field_nett" bind:value={data.nett} step={0.01} />
-    <NumberInput label="Bucket" name="bucket" id="inventory_form_edit_field_bucket" bind:value={data.bucket} step={0.01} />
+    <NumberInput label="Factory Nett" name="factory_nett" id="inventory_form_edit_field_factory_nett" bind:value={data.factory_nett} step={0.001} />
+    <NumberInput label="Deduction" name="deduction" id="inventory_form_edit_field_deduction" bind:value={data.deduction} step={0.001} />
+    <NumberInput label="Nett" name="nett" id="inventory_form_edit_field_nett" bind:value={data.nett} step={0.001} />
+    <NumberInput label="Bucket" name="bucket" id="inventory_form_edit_field_bucket" bind:value={data.bucket} step={0.001} />
 
     <TextInput type="text" label="Remark" name="remark" id="inventory_form_edit_field_remark" value={data.remark} />
     <SelectInputAd label="Unit" name="unit" id="inventory_form_field_unit" choices={[
