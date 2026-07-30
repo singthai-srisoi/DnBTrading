@@ -5,6 +5,7 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'inventories', views.InventoryViewSet)
+router.register(r'last-selected-unit', views.LastSelectedUnitViewSet, basename='last-selected-unit')
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -19,7 +19,7 @@ class InventoryGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Inventory
-        fields = ['id', 'date', 'vehicle', 'driver', 'supplier', 'customer_ticket_no', 'supplier_qty', 'customer', 'product', 'ticket_no', 'do', 'weight_in', 'weight_out', 'factory_nett', 'nett', 'deduction', 'bucket', 'remark']
+        fields = ['id', 'date', 'vehicle', 'driver', 'supplier', 'customer_ticket_no', 'supplier_qty', 'customer', 'product', 'ticket_no', 'do', 'weight_in', 'weight_out', 'factory_nett', 'nett', 'deduction', 'bucket', 'remark', 'unit']
 
     def get_fields(self):
         ...
@@ -52,3 +52,8 @@ class InventoryDataSerializer(serializers.ModelSerializer):
             fields = {key: fields[key] for key in fields if key in context_fields}
 
         return fields
+
+class LastSelectedUnitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.LastSelectedUnit
+        fields = '__all__'

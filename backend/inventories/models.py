@@ -3,6 +3,16 @@ from products.models import Product
 from vehicles.models import Vehicle
 from person.models import Person
 
+class Unit(models.TextChoices):
+    KG = 'kg', 'Kilogram'
+    TON = 'ton', 'Ton'
+
+class LastSelectedUnit(models.Model):
+    unit = models.CharField(max_length=10, choices=Unit.choices, default=Unit.KG)
+
+    def __str__(self):
+        return self.unit
+
 # Create your models here.
 class Inventory(models.Model):
     date = models.DateField()
@@ -24,7 +34,7 @@ class Inventory(models.Model):
     
     customer_ticket_no = models.CharField(max_length=100, null=True, blank=True) # customer ticket no
 
-    supplier_qty = models.IntegerField(default=0)
+    supplier_qty = models.FloatField(default=0)
     customer = models.ForeignKey(
         Person, 
         on_delete=models.SET_NULL,
@@ -34,13 +44,14 @@ class Inventory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
     ticket_no = models.CharField(max_length=100, unique=True)
     do = models.CharField(max_length=100)
-    weight_in = models.IntegerField(default=0)
-    weight_out = models.IntegerField(default=0)
+    weight_in = models.FloatField(default=0)
+    weight_out = models.FloatField(default=0)
 
-    factory_nett = models.IntegerField(default=0, null=True, blank=True) # weight_in - weight_out
-    nett = models.IntegerField(default=0, null=True, blank=True) # factory_nett - deduction
+    factory_nett = models.FloatField(default=0, null=True, blank=True) # weight_in - weight_out
+    nett = models.FloatField(default=0, null=True, blank=True) # factory_nett - deduction
 
-    deduction = models.IntegerField(default=0, null=True, blank=True)
+    deduction = models.FloatField(default=0, null=True, blank=True)
+    unit = models.CharField(max_length=10, choices=Unit.choices, default=Unit.KG)
 
     bucket = models.FloatField(default=0.0, null=True, blank=True) # deduction / 20
 

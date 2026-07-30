@@ -30,7 +30,7 @@ class ReportSchema:
         'supplier': str,
         'supplier__code': 'category', 
         'supplier__name': 'category',
-        'supplier_qty': int,
+        'supplier_qty': float,
         'customer': str,
         'customer__code': 'category',
         'customer__name': 'category',
@@ -39,14 +39,15 @@ class ReportSchema:
         'product__name': 'category',
         'ticket_no': str,
         'do': str,
-        'weight_in': int,
-        'weight_out': int,
-        'nett': int,
-        'deduction': int,
+        'weight_in': float,
+        'weight_out': float,
+        'nett': float,
+        'deduction': float,
         'remark': str,
         'customer_ticket_no': str,
         'factory_nett': int,
-        'bucket': float
+        'bucket': float,
+        'unit': str,
     }
 
     def get_schema(self):
@@ -66,6 +67,7 @@ class ReportSchema:
                 'vehicle': [],
             },
             'orient': 'records',
+            'use_unit': '',  # default unit
         }
 
         return schema
@@ -92,6 +94,24 @@ class ReportSchema:
 
         return query
 
+def scale_column(df, col_name, target_unit):
+    """
+    Scales a column based on unit conversion logic:
+    - ton -> kg : * 1000
+    - kg -> ton : / 1000
+    """
+    if col_name not in df.columns or 'unit' not in df.columns:
+        return df[col_name]
+
+    is_ton_to_kg = (df['unit'] == 'ton') & (target_unit == 'kg')
+    is_kg_to_ton = (df['unit'] == 'kg') & (target_unit == 'ton')
+
+    # Default factor is 1.0 (no conversion)
+    factors = np.ones(len(df), dtype=float)
+    factors[is_ton_to_kg] = 1000.0
+    factors[is_kg_to_ton] = 1 / 1000.0
+
+    return df[col_name] * factors
 
 class ReportDataViewSet(views.APIView, ReportSchema):
     # authentication_classes = [IsAuthenticated]
@@ -106,6 +126,8 @@ class ReportDataViewSet(views.APIView, ReportSchema):
 
     def post(self, request):
         filter = request.data
+        print("filter:", filter)
+        print('use_unit', filter.get('use_unit', None))
         query = self.get_query(filter)
 
         queryset = Inventory.objects.filter(query)
@@ -132,6 +154,15 @@ class ReportDataViewSet(views.APIView, ReportSchema):
         
         # print(convert_dict_filtered)
         df = df.astype(convert_dict_filtered)
+        if unit := filter.get('use_unit', None):
+            weight_columns = ['weight_in', 'weight_out', 'factory_nett', 'nett', 'deduction']
+            if 'unit' in df.columns:
+                for col in weight_columns:
+                    if col in df.columns:
+                        df[col] = scale_column(df, col, unit)
+                
+                # Drop unit column right after scaling, before grouping
+                df.drop(columns=['unit'], inplace=True)
         df['nett'] = df['weight_in'] - df['weight_out'] - df['deduction']
 
         group_by = filter['group_by']
@@ -160,6 +191,16 @@ class ReportDataViewSet(views.APIView, ReportSchema):
         if 'id' in df.columns:
             df.sort_values(by='id', inplace=True)
             df.drop(columns=['id'], inplace=True)
+            
+        # if unit := filter.get('use_unit', None):
+        #     weight_columns = ['weight_in', 'weight_out', 'factory_nett', 'nett', 'deduction']
+        #     for col in weight_columns:
+        #         if col in df.columns:
+        #             df[col] = scale_column(df, col, unit)
+        #     # drop column unit
+        #     print("Dropping column 'unit' from DataFrame")
+        #     df.drop(columns=['unit'], inplace=True)
+                    
         df_json = df.to_dict(orient=orient)
         # df_csv = df.to_csv(index=False)
 
