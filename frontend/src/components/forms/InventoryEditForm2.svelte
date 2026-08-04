@@ -7,6 +7,7 @@
 	import SelectInputAd from "$components/molecule/inputs/SelectInputAd.svelte"
     import NumberInput from "$components/molecule/inputs/NumberInput.svelte"
     import DateInputAd from "$components/molecule/inputs/DateInputAd.svelte"
+    import Decimal from "decimal.js"
 
     export let vehicle_options: App.SelectInputType = []
     export let driver_options: App.SelectInputType = []
@@ -71,9 +72,15 @@
     }
 
     $: {
-        data.factory_nett = String((parseFloat(data.weight_in) || 0) - (parseFloat(data.weight_out) || 0))
-        data.nett = String((parseFloat(data.weight_in) || 0) - (parseFloat(data.weight_out) || 0) - (parseFloat(data.deduction) || 0))
+        // data.factory_nett = String((parseFloat(data.weight_in) || 0) - (parseFloat(data.weight_out) || 0))
+        // data.nett = String((parseFloat(data.weight_in) || 0) - (parseFloat(data.weight_out) || 0) - (parseFloat(data.deduction) || 0))
         // data.bucket = String((parseFloat(data.deduction) || 0) / 20)
+        const wIn = new Decimal(data.weight_in || 0)
+        const wOut = new Decimal(data.weight_out || 0)
+        const ded = new Decimal(data.deduction || 0)
+
+        data.nett = wIn.minus(wOut).minus(ded).toFixed(3)
+        data.factory_nett = wIn.minus(wOut).toFixed(3)
         data = data
     }
 

@@ -6,6 +6,7 @@
     import Button from "../atoms/Button.svelte"
     import Form from "../molecule/Form.svelte"
 	import TextInput from "../molecule/inputs/TextInput.svelte"
+    import Decimal from "decimal.js"
 
     export let action = "?/create"
 
@@ -25,9 +26,15 @@
     let deduction = ""
 
     $: {
-        nett = String((parseFloat(weight_in) || 0) - (parseFloat(weight_out) || 0) - (parseFloat(deduction) || 0))
-        factory_nett = String((parseFloat(weight_in) || 0) - (parseFloat(weight_out) || 0))
+        // nett = String((parseFloat(weight_in) || 0) - (parseFloat(weight_out) || 0) - (parseFloat(deduction) || 0))
+        // factory_nett = String((parseFloat(weight_in) || 0) - (parseFloat(weight_out) || 0))
         // bucket = String((parseFloat(deduction) || 0) / 20)
+        const wIn = new Decimal(weight_in || 0)
+        const wOut = new Decimal(weight_out || 0)
+        const ded = new Decimal(deduction || 0)
+
+        nett = wIn.minus(wOut).minus(ded).toFixed(3)
+        factory_nett = wIn.minus(wOut).toFixed(3)
     }
 </script>
 <Form method="post" {action} size="lg">
