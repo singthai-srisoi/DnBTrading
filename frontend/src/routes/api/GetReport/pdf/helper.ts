@@ -1,6 +1,7 @@
 import PdfPrinter from "pdfmake"
 import type { TDocumentDefinitions, TFontDictionary } from "pdfmake/interfaces"
 import blobStream from "blob-stream"
+import Decimal from "decimal.js"
 
 let fonts: TFontDictionary = {
 	Inter: {
@@ -80,10 +81,10 @@ function transformDataWithSubtotals(data: ReportRow[]): string[][] {
 	}
 
 	let grandTotals = {
-		supplier_qty: 0,
-		factory_nett: 0,
-		nett: 0,
-		deduction: 0,
+		supplier_qty: new Decimal(0),
+		factory_nett: new Decimal(0),
+		nett: new Decimal(0),
+		deduction: new Decimal(0),
 	}
 
 	for (const [supplier, rows] of suppliers) {
@@ -100,37 +101,37 @@ function transformDataWithSubtotals(data: ReportRow[]): string[][] {
 				row.do,
 				row.weight_in.toString(),
 				row.weight_out.toString(),
-				row.supplier_qty.toString(),
-				row.factory_nett.toString(),
-				row.nett.toString(),
-				row.deduction.toString(),
+				new Decimal(row.supplier_qty).toFixed(3),
+				new Decimal(row.factory_nett).toFixed(3),
+				new Decimal(row.nett).toFixed(3),
+				new Decimal(row.deduction).toFixed(3),
 				row.bucket.toString(),
 				row.remark,
 			])
 
-			grandTotals.supplier_qty += row.supplier_qty
-			grandTotals.factory_nett += row.factory_nett
-			grandTotals.nett += row.nett
-			grandTotals.deduction += row.deduction
+			grandTotals.supplier_qty = grandTotals.supplier_qty.plus(row.supplier_qty)
+			grandTotals.factory_nett = grandTotals.factory_nett.plus(row.factory_nett)
+			grandTotals.nett = grandTotals.nett.plus(row.nett)
+			grandTotals.deduction = grandTotals.deduction.plus(row.deduction)
 		}
 
 		// Subtotal row
 		const subtotal = rows.reduce(
 			(acc, row) => ({
-				supplier_qty: acc.supplier_qty + row.supplier_qty,
-				factory_nett: acc.factory_nett + row.factory_nett,
-				nett: acc.nett + row.nett,
-				deduction: acc.deduction + row.deduction,
+				supplier_qty: acc.supplier_qty.plus(row.supplier_qty),
+				factory_nett: acc.factory_nett.plus(row.factory_nett),
+				nett: acc.nett.plus(row.nett),
+				deduction: acc.deduction.plus(row.deduction),
 			}),
-			{ supplier_qty: 0, factory_nett: 0, nett: 0, deduction: 0 }
+			{ supplier_qty: new Decimal(0), factory_nett: new Decimal(0), nett: new Decimal(0), deduction: new Decimal(0) }
 		)
 
 		body.push([
 			"", "", "", `Subtotal for ${supplier}`, "", "", "", "", "", "", "",
-			subtotal.supplier_qty.toString(),
-			subtotal.factory_nett.toString(),
-			subtotal.nett.toString(),
-			subtotal.deduction.toString(),
+			subtotal.supplier_qty.toFixed(3),
+			subtotal.factory_nett.toFixed(3),
+			subtotal.nett.toFixed(3),
+			subtotal.deduction.toFixed(3),
 			"", ""
 		])
 	}
@@ -138,10 +139,10 @@ function transformDataWithSubtotals(data: ReportRow[]): string[][] {
 	// Final total row
 	body.push([
 		"", "", "", "Grand Total", "", "", "", "", "", "", "",
-		grandTotals.supplier_qty.toString(),
-		grandTotals.factory_nett.toString(),
-		grandTotals.nett.toString(),
-		grandTotals.deduction.toString(),
+		grandTotals.supplier_qty.toFixed(3),
+		grandTotals.factory_nett.toFixed(3),
+		grandTotals.nett.toFixed(3),
+		grandTotals.deduction.toFixed(3),
 		"", ""
 	])
 
@@ -161,10 +162,10 @@ export function transformDataWithStyledSubtotals(data: ReportRow[]): string[][] 
 	}
 
 	let grandTotals = {
-		supplier_qty: 0,
-		factory_nett: 0,
-		nett: 0,
-		deduction: 0,
+		supplier_qty: new Decimal(0),
+		factory_nett: new Decimal(0),
+		nett: new Decimal(0),
+		deduction: new Decimal(0),
 	}
 
 	let tableBody: any[] = [
@@ -177,37 +178,37 @@ export function transformDataWithStyledSubtotals(data: ReportRow[]): string[][] 
 				row.date, row.vehicle, row.driver, row.supplier, row.customer, row.product,
 				row.ticket_no, row.customer_ticket_no, row.do,
 				row.weight_in.toString(), row.weight_out.toString(),
-				row.supplier_qty.toString(),
-				row.factory_nett.toString(),
-				row.nett.toString(),
-				row.deduction.toString(),
+				new Decimal(row.supplier_qty).toFixed(3),
+				new Decimal(row.factory_nett).toFixed(3),
+				new Decimal(row.nett).toFixed(3),
+				new Decimal(row.deduction).toFixed(3),
 				row.bucket.toString(), row.remark
 			])
 			// Accumulate for grand total
-			grandTotals.supplier_qty += row.supplier_qty
-			grandTotals.factory_nett += row.factory_nett
-			grandTotals.nett += row.nett
-			grandTotals.deduction += row.deduction
+			grandTotals.supplier_qty = grandTotals.supplier_qty.plus(row.supplier_qty)
+			grandTotals.factory_nett = grandTotals.factory_nett.plus(row.factory_nett)
+			grandTotals.nett = grandTotals.nett.plus(row.nett)
+			grandTotals.deduction = grandTotals.deduction.plus(row.deduction)
 		}
 
 		const subtotal = rows.reduce(
 			(acc, row) => ({
-				supplier_qty: acc.supplier_qty + row.supplier_qty,
-				factory_nett: acc.factory_nett + row.factory_nett,
-				nett: acc.nett + row.nett,
-				deduction: acc.deduction + row.deduction
+				supplier_qty: acc.supplier_qty.plus(row.supplier_qty),
+				factory_nett: acc.factory_nett.plus(row.factory_nett),
+				nett: acc.nett.plus(row.nett),
+				deduction: acc.deduction.plus(row.deduction)
 			}),
-			{ supplier_qty: 0, factory_nett: 0, nett: 0, deduction: 0 }
+			{ supplier_qty: new Decimal(0), factory_nett: new Decimal(0), nett: new Decimal(0), deduction: new Decimal(0) }
 		)
 
 		// Subtotal row with styling
 		tableBody.push([
 			{ text: `Subtotal for ${supplier}`, colSpan: 11, bold: true, fillColor: "#f0f0f0", border: [true, true, true, true] },
 			{}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-			{ text: subtotal.supplier_qty.toString(), bold: true },
-			{ text: subtotal.factory_nett.toString(), bold: true },
-			{ text: subtotal.nett.toString(), bold: true },
-			{ text: subtotal.deduction.toString(), bold: true },
+			{ text: subtotal.supplier_qty.toFixed(3), bold: true },
+			{ text: subtotal.factory_nett.toFixed(3), bold: true },
+			{ text: subtotal.nett.toFixed(3), bold: true },
+			{ text: subtotal.deduction.toFixed(3), bold: true },
 			"", ""
 		])
 	}
@@ -216,10 +217,10 @@ export function transformDataWithStyledSubtotals(data: ReportRow[]): string[][] 
 	tableBody.push([
 		{ text: "GRAND TOTAL", colSpan: 11, bold: true, fillColor: "#dfe6e9", border: [true, true, true, true] },
 		{}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-		{ text: grandTotals.supplier_qty.toString(), bold: true },
-		{ text: grandTotals.factory_nett.toString(), bold: true },
-		{ text: grandTotals.nett.toString(), bold: true },
-		{ text: grandTotals.deduction.toString(), bold: true },
+		{ text: grandTotals.supplier_qty.toFixed(3), bold: true },
+		{ text: grandTotals.factory_nett.toFixed(3), bold: true },
+		{ text: grandTotals.nett.toFixed(3), bold: true },
+		{ text: grandTotals.deduction.toFixed(3), bold: true },
 		"", ""
 	])
 
