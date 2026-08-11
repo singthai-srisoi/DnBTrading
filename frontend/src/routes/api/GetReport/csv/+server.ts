@@ -1,6 +1,7 @@
 import getBackendURL from "$lib/utils/getBackendURL"
 import { json } from "@sveltejs/kit"
 import { mkConfig, generateCsv, asString } from "export-to-csv";
+import { formatReportRows } from "../pdf/helper";
 
 const csv_config = mkConfig({useKeysAsHeaders: true})
 
@@ -18,16 +19,14 @@ export async function POST({ request, setHeaders, fetch }) {
 	let data = await res.json()
 	if (!data.data || data.data.length === 0) return json({ error: "No data found" })
     
-    // console.log(data.data)
-    let csv = generateCsv(csv_config)(data.data)
-    // let csvBuffer = new Uint8Array(Buffer.from(asString(csv)));
+	let formatted = formatReportRows(data.data)
+    let csv = generateCsv(csv_config)(formatted)
     let csvBlob = new Blob([asString(csv)], { type: "application/csv" })
 
 	setHeaders({
 		"Content-Type": "application/csv",
 		"Content-Disposition": "attachment; filename=report.csv",
 	})
-	// console.log(doc)
 
 	return new Response(csvBlob)
 }

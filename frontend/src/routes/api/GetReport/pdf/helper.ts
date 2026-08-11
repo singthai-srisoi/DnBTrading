@@ -237,5 +237,19 @@ export function transformDataWithStyledSubtotals(data: ReportRow[]): string[][] 
 	return tableBody
 }
 
+const DECIMAL_FIELDS = ["supplier_qty", "factory_nett", "nett", "deduction"] as const
+
+export function formatReportRows(rows: {[k: string]: any}[]): {[k: string]: any}[] {
+	return rows.map((row) => {
+		const formatted = { ...row }
+		for (const field of DECIMAL_FIELDS) {
+			if (field in formatted && formatted[field] != null) {
+				formatted[field] = new Decimal(formatted[field]).toFixed(3)
+			}
+		}
+		return formatted
+	})
+}
+
 // const tableData = transformDataWithSubtotals(reportData)
 // const pdfBlob = await GenerateReport(tableData)

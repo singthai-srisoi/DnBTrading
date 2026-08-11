@@ -1,6 +1,7 @@
 
 import getBackendURL from "$lib/utils/getBackendURL.js"
 import { json } from "@sveltejs/kit"
+import { formatReportRows } from "./pdf/helper"
 
 export async function POST({ request, fetch }) {
 	let scheme = await request.json()
@@ -12,5 +13,9 @@ export async function POST({ request, fetch }) {
         },
         body: JSON.stringify(scheme),
     })
-	return json(await res.json())
+	let data = await res.json()
+	if (data.data) {
+		data.data = formatReportRows(data.data)
+	}
+	return json(data)
 }
