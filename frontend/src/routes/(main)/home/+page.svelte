@@ -3,6 +3,7 @@
 	import Card from "$components/molecule/Card.svelte"
 	import DateInputAd from "$components/molecule/inputs/DateInputAd.svelte"
 	import SelectInputAd from "$components/molecule/inputs/SelectInputAd.svelte"
+	import Decimal from "decimal.js"
 	import { onMount } from "svelte"
 	import type { PageData } from "./$types"
 	import TextInput from "$components/molecule/inputs/TextInput.svelte"
@@ -13,6 +14,11 @@
 
 	let schema = data.schema
 	let choices = schema.grouping.map((group: string) => ({ value: group, label: group }))
+
+	function formatDecimal(value: string | number | null | undefined) {
+		const decimalValue = value === "" || value === null || value === undefined ? 0 : value
+		return new Decimal(decimalValue).toFixed(3)
+	}
 
 	let search_data = JSON.parse(JSON.stringify(data.data))
 	async function ButtonClick() {
@@ -65,6 +71,17 @@
 <h1>Home</h1>
 <Card size="lg" classes="success">
 	<SelectInputAd {choices} label="Grouping" name="grouping" id="home_page_grouping" bind:actual_value={schema.group_by} />
+	<div class="unit-filter">
+		<h2>Unit</h2>
+		<label for="home_page_unit_kg">
+			<input type="radio" name="use_unit" id="home_page_unit_kg" value="kg" bind:group={schema.use_unit} />
+			KG
+		</label>
+		<label for="home_page_unit_ton">
+			<input type="radio" name="use_unit" id="home_page_unit_ton" value="ton" bind:group={schema.use_unit} />
+			TON
+		</label>
+	</div>
 	<div class="flex">
 		<DateInputAd label="Start Date" name="start_date" id="home_page_start_date" bind:value={schema.start_date} />
 		<DateInputAd label="End Date" name="end_date" id="home_page_end_date" bind:value={schema.end_date} />
@@ -83,6 +100,7 @@
 	<Card size="free" classes="info">
 		<div class="group">
 			<h2>{item[schema.group_by] == "" ? "(Empty)" : item[schema.group_by]}</h2>
+			<p class="unit">Unit: {schema.use_unit.toUpperCase()}</p>
 			<hr />
 			<table>
 				<!-- 'factory_nett': 'sum', 
@@ -91,19 +109,19 @@
                 'deduction': 'sum', -->
 					<tr>
 						<th>Total Factory Nett</th>
-						<td>{item["factory_nett"]}</td>
+						<td>{formatDecimal(item["factory_nett"])}</td>
 					</tr>
 					<tr>
 						<th>Total Bucket</th>
-						<td>{item["bucket"]}</td>
+						<td>{formatDecimal(item["bucket"])}</td>
 					</tr>
 					<tr>
 						<th>Total Deduction</th>
-						<td>{item["deduction"]}</td>
+						<td>{formatDecimal(item["deduction"])}</td>
 					</tr>
 					<tr>
 						<th>Total Nett</th>
-						<td>{item["nett"]}</td>
+						<td>{formatDecimal(item["nett"])}</td>
 					</tr>
 			</table>
 		</div>
@@ -156,5 +174,21 @@
     align-items: center;
     padding: 1rem 0;
     gap: 0.3rem;
+}
+
+.unit-filter {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+
+	& h2 {
+		margin: 0;
+	}
+}
+
+.unit {
+	margin: 0;
+	font-size: 0.9rem;
+	opacity: 0.8;
 }
 </style>

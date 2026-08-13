@@ -130,6 +130,25 @@ def recalculate_weight_columns(df):
 
     return df
 
+def apply_unit_conversion(df, target_unit):
+    if not target_unit or 'unit' not in df.columns:
+        return df
+
+    weight_columns = ['weight_in', 'weight_out', 'factory_nett', 'nett', 'deduction']
+    for col in weight_columns:
+        if col in df.columns:
+            df[col] = scale_column(df, col, target_unit)
+
+    df.drop(columns=['unit'], inplace=True)
+    return df
+
+def recalculate_grouped_nett(df):
+    if 'factory_nett' not in df.columns or 'deduction' not in df.columns or 'nett' not in df.columns:
+        return df
+
+    df['nett'] = df['factory_nett'].astype(float) - df['deduction'].astype(float)
+    return df
+
 class ReportDataViewSet(views.APIView, ReportSchema):
     # authentication_classes = [IsAuthenticated]
     permission_classes = (IsAuthenticated, )
@@ -172,14 +191,7 @@ class ReportDataViewSet(views.APIView, ReportSchema):
         # print(convert_dict_filtered)
         df = df.astype(convert_dict_filtered)
         if unit := filter.get('use_unit', None):
-            weight_columns = ['weight_in', 'weight_out', 'factory_nett', 'nett', 'deduction']
-            if 'unit' in df.columns:
-                for col in weight_columns:
-                    if col in df.columns:
-                        df[col] = scale_column(df, col, unit)
-                
-                # Drop unit column right after scaling, before grouping
-                df.drop(columns=['unit'], inplace=True)
+            df = apply_unit_conversion(df, unit)
         df = recalculate_weight_columns(df)
 
         group_by = filter['group_by']
@@ -256,6 +268,8 @@ class HomePageOverviewViewSet(views.APIView, ReportSchema):
         if 'nett' in df.columns:
             df['nett'] = df['nett'].replace([''], [0])
         df = df.astype(convert_dict_filtered)
+        if unit := filter.get('use_unit', None):
+            df = apply_unit_conversion(df, unit)
         df = recalculate_weight_columns(df)
 
         group_by = filter['group_by']
@@ -267,6 +281,7 @@ class HomePageOverviewViewSet(views.APIView, ReportSchema):
                 'nett': 'sum',
                 'deduction': 'sum',
             })).reset_index()
+            final = recalculate_grouped_nett(final)
             df = final
 
         orient = filter.get('orient', 'records')
