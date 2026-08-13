@@ -45,7 +45,7 @@ class ReportSchema:
         'deduction': float,
         'remark': str,
         'customer_ticket_no': str,
-        'factory_nett': int,
+        'factory_nett': float,
         'bucket': float,
         'unit': str,
     }
@@ -113,6 +113,23 @@ def scale_column(df, col_name, target_unit):
 
     return df[col_name] * factors
 
+def recalculate_weight_columns(df):
+    if 'weight_in' not in df.columns or 'weight_out' not in df.columns:
+        return df
+
+    weight_in = df['weight_in'].astype(float)
+    weight_out = df['weight_out'].astype(float)
+    factory_nett = weight_in - weight_out
+
+    if 'factory_nett' in df.columns:
+        df['factory_nett'] = factory_nett
+
+    if 'nett' in df.columns:
+        deduction = df['deduction'].astype(float) if 'deduction' in df.columns else 0.0
+        df['nett'] = factory_nett - deduction
+
+    return df
+
 class ReportDataViewSet(views.APIView, ReportSchema):
     # authentication_classes = [IsAuthenticated]
     permission_classes = (IsAuthenticated, )
@@ -163,7 +180,7 @@ class ReportDataViewSet(views.APIView, ReportSchema):
                 
                 # Drop unit column right after scaling, before grouping
                 df.drop(columns=['unit'], inplace=True)
-        df['nett'] = df['weight_in'] - df['weight_out'] - df['deduction']
+        df = recalculate_weight_columns(df)
 
         group_by = filter['group_by']
         # print(group_by)
@@ -239,7 +256,7 @@ class HomePageOverviewViewSet(views.APIView, ReportSchema):
         if 'nett' in df.columns:
             df['nett'] = df['nett'].replace([''], [0])
         df = df.astype(convert_dict_filtered)
-        df['nett'] = df['weight_in'] - df['weight_out'] - df['deduction']
+        df = recalculate_weight_columns(df)
 
         group_by = filter['group_by']
         # print(group_by)
