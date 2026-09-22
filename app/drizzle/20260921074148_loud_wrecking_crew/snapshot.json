@@ -1,0 +1,2549 @@
+{
+  "dialect": "postgres",
+  "id": "9789bc99-fc82-477b-818f-7769d50ac84f",
+  "prevIds": [
+    "00000000-0000-0000-0000-000000000000"
+  ],
+  "version": "8",
+  "ddl": [
+    {
+      "isRlsEnabled": false,
+      "name": "auth_group",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "auth_group_permissions",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "auth_permission",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "auth_user",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "auth_user_groups",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "auth_user_user_permissions",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "django_admin_log",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "django_content_type",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "django_migrations",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "django_session",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "inventories_inventory",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "inventories_lastselectedunit",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "person_person",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "products_product",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "products_producttype",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "token_blacklist_blacklistedtoken",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "token_blacklist_outstandingtoken",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "vehicles_vehicle",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "django_content_type_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_content_type"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "django_migrations_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_migrations"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "auth_group_permissions_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_group_permissions"
+    },
+    {
+      "type": "varchar(40)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "session_key",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_session"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "inventories_inventory_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "auth_user_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "inventories_lastselectedunit_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_lastselectedunit"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "vehicles_vehicle_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "vehicles_vehicle"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "token_blacklist_outstandingtoken_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "token_blacklist_blacklistedtoken_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "token_blacklist_blacklistedtoken"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "auth_user_groups_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user_groups"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "auth_group_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_group"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "auth_user_user_permissions_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user_user_permissions"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "django_admin_log_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "auth_permission_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "2147483647",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_permission"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "code",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "products_producttype"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "products_product_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "products_product"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": {
+        "type": "byDefault",
+        "name": "person_person_id_seq",
+        "increment": "1",
+        "minValue": "1",
+        "maxValue": "9223372036854775807",
+        "startWith": "1",
+        "cycle": false,
+        "cache": 1
+      },
+      "name": "id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "person_person"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "action_time",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "products_producttype"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "app",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_migrations"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_permission"
+    },
+    {
+      "type": "date",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "date",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "user_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user_groups"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "session_data",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_session"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "unit",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_lastselectedunit"
+    },
+    {
+      "type": "varchar(150)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_group"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "user_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user_user_permissions"
+    },
+    {
+      "type": "varchar(128)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "password",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "group_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_group_permissions"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "code",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "person_person"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "reg_no",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "vehicles_vehicle"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "code",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "products_product"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "token",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "app_label",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_content_type"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "blacklisted_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "token_blacklist_blacklistedtoken"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "group_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user_groups"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "permission_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_group_permissions"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "content_type_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_permission"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "last_login",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "permission_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user_user_permissions"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "object_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "model",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_content_type"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_migrations"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "expire_date",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_session"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "customer_ticket_no",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "person_person"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "products_product"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "token_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "token_blacklist_blacklistedtoken"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "model",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "vehicles_vehicle"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "is_superuser",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "price",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "products_product"
+    },
+    {
+      "type": "varchar(200)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "object_repr",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "applied",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_migrations"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "supplier_qty",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "varchar(20)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "phone",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "person_person"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "codename",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_permission"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "expires_at",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "type_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "products_product"
+    },
+    {
+      "type": "smallint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "action_flag",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "ic",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "person_person"
+    },
+    {
+      "type": "varchar(150)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "username",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "user_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "ticket_no",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "varchar(150)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "first_name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "varchar(100)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "do",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "type",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "person_person"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "change_message",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "jti",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "content_type_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "type": "varchar(150)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "last_name",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "weight_in",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "user_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "weight_out",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "varchar(254)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "email",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "is_staff",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "factory_nett",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "deduction",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "is_active",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "bucket",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "date_joined",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "remark",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "customer_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "driver_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "product_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "supplier_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "vehicle_id",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "double precision",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "nett",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "type": "varchar(10)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "unit",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": {
+            "name": "varchar_pattern_ops",
+            "default": false
+          },
+          "isExpression": false,
+          "value": "name"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "auth_group_name_a6ea08ec_like",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "auth_group"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "group_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "auth_group_permissions_group_id_b120cbf9",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "auth_group_permissions"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "permission_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "auth_group_permissions_permission_id_84c5c92e",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "auth_group_permissions"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "content_type_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "auth_permission_content_type_id_2f476e4b",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "auth_permission"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "group_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "auth_user_groups_group_id_97559544",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "auth_user_groups"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "user_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "auth_user_groups_user_id_6a12ed8b",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "auth_user_groups"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "permission_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "auth_user_user_permissions_permission_id_1fbb5f2c",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "auth_user_user_permissions"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "user_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "auth_user_user_permissions_user_id_a95ead1b",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "auth_user_user_permissions"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": {
+            "name": "varchar_pattern_ops",
+            "default": false
+          },
+          "isExpression": false,
+          "value": "username"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "auth_user_username_6821ab7c_like",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "content_type_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "django_admin_log_content_type_id_c4bce8eb",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "user_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "django_admin_log_user_id_c564eba6",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "expire_date"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "django_session_expire_date_a5c62663",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "django_session"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": {
+            "name": "varchar_pattern_ops",
+            "default": false
+          },
+          "isExpression": false,
+          "value": "session_key"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "django_session_session_key_c0390e0f_like",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "django_session"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "customer_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "inventories_inventory_customer_id_6e232f4f",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "driver_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "inventories_inventory_driver_id_440b3e60",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "product_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "inventories_inventory_product_id_8199cb3d",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "supplier_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "inventories_inventory_supplier_id_c1910ce3",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": {
+            "name": "varchar_pattern_ops",
+            "default": false
+          },
+          "isExpression": false,
+          "value": "ticket_no"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "inventories_inventory_ticket_no_4343be3a_like",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "vehicle_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "inventories_inventory_vehicle_id_8686ba5c",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "type_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "products_product_type_id_027d8fc4",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "products_product"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": {
+            "name": "varchar_pattern_ops",
+            "default": false
+          },
+          "isExpression": false,
+          "value": "type_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "products_product_type_id_027d8fc4_like",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "products_product"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": {
+            "name": "varchar_pattern_ops",
+            "default": false
+          },
+          "isExpression": false,
+          "value": "code"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "products_producttype_code_f1627f17_like",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "products_producttype"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": {
+            "name": "varchar_pattern_ops",
+            "default": false
+          },
+          "isExpression": false,
+          "value": "jti"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_like",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null,
+          "isExpression": false,
+          "value": "user_id"
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "token_blacklist_outstandingtoken_user_id_83bc629a",
+      "entityType": "indexes",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "permission_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "auth_permission",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "auth_group_permissio_permission_id_84c5c92e_fk_auth_perm",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "auth_group_permissions"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "group_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "auth_group",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "auth_group_permissions_group_id_b120cbf9_fk_auth_group_id",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "auth_group_permissions"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "content_type_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "django_content_type",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "auth_permission_content_type_id_2f476e4b_fk_django_co",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "auth_permission"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "group_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "auth_group",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "auth_user_groups_group_id_97559544_fk_auth_group_id",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "auth_user_groups"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "auth_user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "auth_user_groups_user_id_6a12ed8b_fk_auth_user_id",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "auth_user_groups"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "permission_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "auth_permission",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "auth_user_user_permissions"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "auth_user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "auth_user_user_permissions"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "content_type_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "django_content_type",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "django_admin_log_content_type_id_c4bce8eb_fk_django_co",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "auth_user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "django_admin_log_user_id_c564eba6_fk_auth_user_id",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "product_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "products_product",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "inventories_inventor_product_id_8199cb3d_fk_products_",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "vehicle_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "vehicles_vehicle",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "inventories_inventor_vehicle_id_8686ba5c_fk_vehicles_",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "customer_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "person_person",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "inventories_inventory_customer_id_6e232f4f_fk_person_person_id",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "driver_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "person_person",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "inventories_inventory_driver_id_440b3e60_fk_person_person_id",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "supplier_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "person_person",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "inventories_inventory_supplier_id_c1910ce3_fk_person_person_id",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "type_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "products_producttype",
+      "columnsTo": [
+        "code"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "products_product_type_id_027d8fc4_fk_products_producttype_code",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "products_product"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "token_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "token_blacklist_outstandingtoken",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "token_blacklist_blacklistedtoken_token_id_3cc7fe56_fk",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "token_blacklist_blacklistedtoken"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "auth_user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "token_blacklist_outs_user_id_83bc629a_fk_auth_user",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "auth_group_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "auth_group"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "auth_group_permissions_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "auth_group_permissions"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "auth_permission_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "auth_permission"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "auth_user_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "auth_user_groups_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "auth_user_groups"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "auth_user_user_permissions_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "auth_user_user_permissions"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "django_admin_log_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "django_admin_log"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "django_content_type_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "django_content_type"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "django_migrations_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "django_migrations"
+    },
+    {
+      "columns": [
+        "session_key"
+      ],
+      "nameExplicit": true,
+      "name": "django_session_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "django_session"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "inventories_inventory_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "person_person_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "person_person"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "products_product_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "products_product"
+    },
+    {
+      "columns": [
+        "code"
+      ],
+      "nameExplicit": true,
+      "name": "products_producttype_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "products_producttype"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "token_blacklist_blacklistedtoken_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "token_blacklist_blacklistedtoken"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "token_blacklist_outstandingtoken_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "vehicles_vehicle_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "vehicles_vehicle"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": true,
+      "name": "inventories_lastselectedunit_pkey",
+      "entityType": "pks",
+      "schema": "public",
+      "table": "inventories_lastselectedunit"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "name"
+      ],
+      "nullsNotDistinct": false,
+      "name": "auth_group_name_key",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "auth_group"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "group_id",
+        "permission_id"
+      ],
+      "nullsNotDistinct": false,
+      "name": "auth_group_permissions_group_id_permission_id_0cd325b0_uniq",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "auth_group_permissions"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "content_type_id",
+        "codename"
+      ],
+      "nullsNotDistinct": false,
+      "name": "auth_permission_content_type_id_codename_01ab375a_uniq",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "auth_permission"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "username"
+      ],
+      "nullsNotDistinct": false,
+      "name": "auth_user_username_key",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "auth_user"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "user_id",
+        "group_id"
+      ],
+      "nullsNotDistinct": false,
+      "name": "auth_user_groups_user_id_group_id_94350c0c_uniq",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "auth_user_groups"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "user_id",
+        "permission_id"
+      ],
+      "nullsNotDistinct": false,
+      "name": "auth_user_user_permissions_user_id_permission_id_14a6b632_uniq",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "auth_user_user_permissions"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "app_label",
+        "model"
+      ],
+      "nullsNotDistinct": false,
+      "name": "django_content_type_app_label_model_76bd3d3b_uniq",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "django_content_type"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "ticket_no"
+      ],
+      "nullsNotDistinct": false,
+      "name": "inventories_inventory_ticket_no_4343be3a_uniq",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "inventories_inventory"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "token_id"
+      ],
+      "nullsNotDistinct": false,
+      "name": "token_blacklist_blacklistedtoken_token_id_key",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "token_blacklist_blacklistedtoken"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        "jti"
+      ],
+      "nullsNotDistinct": false,
+      "name": "token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_uniq",
+      "entityType": "uniques",
+      "schema": "public",
+      "table": "token_blacklist_outstandingtoken"
+    },
+    {
+      "value": "(action_flag >= 0)",
+      "name": "django_admin_log_action_flag_check",
+      "entityType": "checks",
+      "schema": "public",
+      "table": "django_admin_log"
+    }
+  ],
+  "renames": []
+}

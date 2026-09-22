@@ -1,163 +1,101 @@
-import { relations } from 'drizzle-orm/relations';
-import {
-	authPermission,
-	authUserUserPermissions,
-	authUser,
-	productsProducttype,
-	productsProduct,
-	authGroup,
-	authUserGroups,
-	djangoContentType,
-	djangoAdminLog,
-	tokenBlacklistOutstandingtoken,
-	tokenBlacklistBlacklistedtoken,
-	authGroupPermissions,
-	inventoriesInventory,
-	vehiclesVehicle,
-	personPerson
-} from './main.schema';
+import { defineRelations } from 'drizzle-orm';
+import * as schema from './main.schema';
 
-export const authUserUserPermissionsRelations = relations(authUserUserPermissions, ({ one }) => ({
-	authPermission: one(authPermission, {
-		fields: [authUserUserPermissions.permissionId],
-		references: [authPermission.id]
-	}),
-	authUser: one(authUser, {
-		fields: [authUserUserPermissions.userId],
-		references: [authUser.id]
-	})
-}));
-
-export const authPermissionRelations = relations(authPermission, ({ one, many }) => ({
-	authUserUserPermissions: many(authUserUserPermissions),
-	djangoContentType: one(djangoContentType, {
-		fields: [authPermission.contentTypeId],
-		references: [djangoContentType.id]
-	}),
-	authGroupPermissions: many(authGroupPermissions)
-}));
-
-export const authUserRelations = relations(authUser, ({ many }) => ({
-	authUserUserPermissions: many(authUserUserPermissions),
-	authUserGroups: many(authUserGroups),
-	djangoAdminLogs: many(djangoAdminLog),
-	tokenBlacklistOutstandingtokens: many(tokenBlacklistOutstandingtoken)
-}));
-
-export const productsProductRelations = relations(productsProduct, ({ one, many }) => ({
-	productsProducttype: one(productsProducttype, {
-		fields: [productsProduct.typeId],
-		references: [productsProducttype.code]
-	}),
-	inventoriesInventories: many(inventoriesInventory)
-}));
-
-export const productsProducttypeRelations = relations(productsProducttype, ({ many }) => ({
-	productsProducts: many(productsProduct)
-}));
-
-export const authUserGroupsRelations = relations(authUserGroups, ({ one }) => ({
-	authGroup: one(authGroup, {
-		fields: [authUserGroups.groupId],
-		references: [authGroup.id]
-	}),
-	authUser: one(authUser, {
-		fields: [authUserGroups.userId],
-		references: [authUser.id]
-	})
-}));
-
-export const authGroupRelations = relations(authGroup, ({ many }) => ({
-	authUserGroups: many(authUserGroups),
-	authGroupPermissions: many(authGroupPermissions)
-}));
-
-export const djangoAdminLogRelations = relations(djangoAdminLog, ({ one }) => ({
-	djangoContentType: one(djangoContentType, {
-		fields: [djangoAdminLog.contentTypeId],
-		references: [djangoContentType.id]
-	}),
-	authUser: one(authUser, {
-		fields: [djangoAdminLog.userId],
-		references: [authUser.id]
-	})
-}));
-
-export const djangoContentTypeRelations = relations(djangoContentType, ({ many }) => ({
-	djangoAdminLogs: many(djangoAdminLog),
-	authPermissions: many(authPermission)
-}));
-
-export const tokenBlacklistOutstandingtokenRelations = relations(
-	tokenBlacklistOutstandingtoken,
-	({ one, many }) => ({
-		authUser: one(authUser, {
-			fields: [tokenBlacklistOutstandingtoken.userId],
-			references: [authUser.id]
+export const relations = defineRelations(schema, (r) => ({
+	authPermission: {
+		authGroups: r.many.authGroup({
+			from: r.authPermission.id.through(r.authGroupPermissions.permissionId),
+			to: r.authGroup.id.through(r.authGroupPermissions.groupId)
 		}),
-		tokenBlacklistBlacklistedtokens: many(tokenBlacklistBlacklistedtoken)
-	})
-);
-
-export const tokenBlacklistBlacklistedtokenRelations = relations(
-	tokenBlacklistBlacklistedtoken,
-	({ one }) => ({
-		tokenBlacklistOutstandingtoken: one(tokenBlacklistOutstandingtoken, {
-			fields: [tokenBlacklistBlacklistedtoken.tokenId],
-			references: [tokenBlacklistOutstandingtoken.id]
+		djangoContentType: r.one.djangoContentType({
+			from: r.authPermission.contentTypeId,
+			to: r.djangoContentType.id
+		}),
+		authUsers: r.many.authUser({
+			from: r.authPermission.id.through(r.authUserUserPermissions.permissionId),
+			to: r.authUser.id.through(r.authUserUserPermissions.userId)
 		})
-	})
-);
-
-export const authGroupPermissionsRelations = relations(authGroupPermissions, ({ one }) => ({
-	authPermission: one(authPermission, {
-		fields: [authGroupPermissions.permissionId],
-		references: [authPermission.id]
-	}),
-	authGroup: one(authGroup, {
-		fields: [authGroupPermissions.groupId],
-		references: [authGroup.id]
-	})
-}));
-
-export const inventoriesInventoryRelations = relations(inventoriesInventory, ({ one }) => ({
-	productsProduct: one(productsProduct, {
-		fields: [inventoriesInventory.productId],
-		references: [productsProduct.id]
-	}),
-	vehiclesVehicle: one(vehiclesVehicle, {
-		fields: [inventoriesInventory.vehicleId],
-		references: [vehiclesVehicle.id]
-	}),
-	personPerson_customerId: one(personPerson, {
-		fields: [inventoriesInventory.customerId],
-		references: [personPerson.id],
-		relationName: 'inventoriesInventory_customerId_personPerson_id'
-	}),
-	personPerson_driverId: one(personPerson, {
-		fields: [inventoriesInventory.driverId],
-		references: [personPerson.id],
-		relationName: 'inventoriesInventory_driverId_personPerson_id'
-	}),
-	personPerson_supplierId: one(personPerson, {
-		fields: [inventoriesInventory.supplierId],
-		references: [personPerson.id],
-		relationName: 'inventoriesInventory_supplierId_personPerson_id'
-	})
-}));
-
-export const vehiclesVehicleRelations = relations(vehiclesVehicle, ({ many }) => ({
-	inventoriesInventories: many(inventoriesInventory)
-}));
-
-export const personPersonRelations = relations(personPerson, ({ many }) => ({
-	inventoriesInventories_customerId: many(inventoriesInventory, {
-		relationName: 'inventoriesInventory_customerId_personPerson_id'
-	}),
-	inventoriesInventories_driverId: many(inventoriesInventory, {
-		relationName: 'inventoriesInventory_driverId_personPerson_id'
-	}),
-	inventoriesInventories_supplierId: many(inventoriesInventory, {
-		relationName: 'inventoriesInventory_supplierId_personPerson_id'
-	})
+	},
+	authGroup: {
+		authPermissions: r.many.authPermission(),
+		authUsers: r.many.authUser({
+			from: r.authGroup.id.through(r.authUserGroups.groupId),
+			to: r.authUser.id.through(r.authUserGroups.userId)
+		})
+	},
+	djangoContentType: {
+		authPermissions: r.many.authPermission(),
+		authUsers: r.many.authUser({
+			from: r.djangoContentType.id.through(r.djangoAdminLog.contentTypeId),
+			to: r.authUser.id.through(r.djangoAdminLog.userId)
+		})
+	},
+	authUser: {
+		authGroups: r.many.authGroup(),
+		authPermissions: r.many.authPermission(),
+		djangoContentTypes: r.many.djangoContentType(),
+		tokenBlacklistOutstandingtokens: r.many.tokenBlacklistOutstandingtoken()
+	},
+	inventoriesInventory: {
+		productsProduct: r.one.productsProduct({
+			from: r.inventoriesInventory.productId,
+			to: r.productsProduct.id
+		}),
+		vehiclesVehicle: r.one.vehiclesVehicle({
+			from: r.inventoriesInventory.vehicleId,
+			to: r.vehiclesVehicle.id
+		}),
+		personPersonCustomerId: r.one.personPerson({
+			from: r.inventoriesInventory.customerId,
+			to: r.personPerson.id,
+			alias: 'inventoriesInventory_customerId_personPerson_id'
+		}),
+		personPersonDriverId: r.one.personPerson({
+			from: r.inventoriesInventory.driverId,
+			to: r.personPerson.id,
+			alias: 'inventoriesInventory_driverId_personPerson_id'
+		}),
+		personPersonSupplierId: r.one.personPerson({
+			from: r.inventoriesInventory.supplierId,
+			to: r.personPerson.id,
+			alias: 'inventoriesInventory_supplierId_personPerson_id'
+		})
+	},
+	productsProduct: {
+		inventoriesInventories: r.many.inventoriesInventory(),
+		productsProducttype: r.one.productsProducttype({
+			from: r.productsProduct.typeId,
+			to: r.productsProducttype.code
+		})
+	},
+	vehiclesVehicle: {
+		inventoriesInventories: r.many.inventoriesInventory()
+	},
+	personPerson: {
+		inventoriesInventoriesCustomerId: r.many.inventoriesInventory({
+			alias: 'inventoriesInventory_customerId_personPerson_id'
+		}),
+		inventoriesInventoriesDriverId: r.many.inventoriesInventory({
+			alias: 'inventoriesInventory_driverId_personPerson_id'
+		}),
+		inventoriesInventoriesSupplierId: r.many.inventoriesInventory({
+			alias: 'inventoriesInventory_supplierId_personPerson_id'
+		})
+	},
+	productsProducttype: {
+		productsProducts: r.many.productsProduct()
+	},
+	tokenBlacklistBlacklistedtoken: {
+		tokenBlacklistOutstandingtoken: r.one.tokenBlacklistOutstandingtoken({
+			from: r.tokenBlacklistBlacklistedtoken.tokenId,
+			to: r.tokenBlacklistOutstandingtoken.id
+		})
+	},
+	tokenBlacklistOutstandingtoken: {
+		tokenBlacklistBlacklistedtokens: r.many.tokenBlacklistBlacklistedtoken(),
+		authUser: r.one.authUser({
+			from: r.tokenBlacklistOutstandingtoken.userId,
+			to: r.authUser.id
+		})
+	}
 }));
