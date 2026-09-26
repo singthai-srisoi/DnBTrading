@@ -88,10 +88,10 @@ Example Usage
 	};
 </script>
 
-<Card.Root class="gap-1 rounded-md p-2 shadow-none">
+<Card.Root class="gap-1 rounded-md p-2 shadow-none max-w-full">
 	<Card.Header class="p-2">
 		<div class="flex items-center gap-2">
-			<Input placeholder="Search branches..." bind:value={paginationState.search} class="w-2xs" />
+			<Input placeholder="Search..." bind:value={paginationState.search} class="w-2xs" />
 			{@render filters?.(paginationState)}
 			<Button
 				variant="destructive"

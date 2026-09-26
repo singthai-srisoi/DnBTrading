@@ -17,6 +17,7 @@ import {
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
+// #region Django Auth
 export const authGroup = pgTable(
 	'auth_group',
 	{
@@ -208,6 +209,8 @@ export const djangoSession = pgTable(
 		)
 	]
 );
+
+// #endregion
 
 export const inventoriesInventory = pgTable(
 	'inventories_inventory',

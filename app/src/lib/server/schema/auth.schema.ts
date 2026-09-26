@@ -95,25 +95,21 @@ export const verification = pgTable(
 
 export const authRelations = defineRelations({ session, account, user, verification }, (r) => ({
 	user: {
-		sessions: r.many.session({
-			from: r.user.id,
-			to: r.session.userId
-		}),
-		accounts: r.many.account({
-			from: r.user.id,
-			to: r.account.userId
-		})
+		sessions: r.many.session(),
+		accounts: r.many.account()
 	},
 	session: {
 		user: r.one.user({
 			from: r.session.userId,
-			to: r.user.id
+			to: r.user.id,
+			optional: false
 		})
 	},
 	account: {
 		user: r.one.user({
 			from: r.account.userId,
-			to: r.user.id
+			to: r.user.id,
+			optional: false
 		})
 	}
 }));
