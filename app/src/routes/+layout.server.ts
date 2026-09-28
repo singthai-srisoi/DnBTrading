@@ -5,9 +5,9 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
 	const pathname = url.pathname;
 	const isAuthRoute = pathname === '/login';
 
-	// if (!locals.user && !isAuthRoute) {
-	// 	throw redirect(303, '/login');
-	// }
+	if (!locals.user && !isAuthRoute) {
+		throw redirect(303, '/login');
+	}
 
 	// if (locals.user && isAuthRoute) {
 	// 	throw redirect(303, '/');
