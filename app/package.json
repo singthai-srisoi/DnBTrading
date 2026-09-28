@@ -50,6 +50,7 @@
 		"vite": "^8.0.16"
 	},
 	"dependencies": {
+		"danfojs": "^1.2.0",
 		"decimal.js": "^10.6.0",
 		"valibot": "^1.5.0"
 	}

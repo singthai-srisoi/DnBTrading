@@ -8,6 +8,7 @@
 	import { cn } from '$lib/utils.js';
 
 	interface Props {
+		id?: string;
 		choices: { value: any; label: string }[];
 		value: any;
 		placeholder?: string;
@@ -17,6 +18,7 @@
 	}
 
 	let {
+		id,
 		choices,
 		value = $bindable(),
 		placeholder = 'Select...',
@@ -87,7 +89,7 @@
 		search = '';
 	}}
 >
-	<Popover.Trigger bind:ref={triggerRef}>
+	<Popover.Trigger {id} bind:ref={triggerRef}>
 		{#snippet child({ props })}
 			<Button
 				{...props}

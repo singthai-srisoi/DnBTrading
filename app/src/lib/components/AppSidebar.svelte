@@ -59,6 +59,11 @@
 				title: 'Inventory',
 				url: '/inventory',
 				icon: Settings2Icon
+			},
+			{
+				title: "Reports",
+				url: '/reports',
+				icon: BookOpenIcon
 			}
 		]
 	};
