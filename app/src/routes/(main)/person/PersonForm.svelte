@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Input } from '$lib/components/ui/input';
+	import { enterToNext } from '$lib/actions/enterToNext';
 	import * as Field from '$lib/components/ui/field/index.js';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Checkbox from '$lib/components/ui/checkbox/checkbox.svelte';
@@ -45,6 +46,7 @@
 </script>
 
 <form
+	use:enterToNext
 	{...formFunction.enhance(async (form) => {
 		try {
 			if (await form.submit()) {

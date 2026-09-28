@@ -88,7 +88,7 @@ Example Usage
 	};
 </script>
 
-<Card.Root class="gap-1 rounded-md p-2 shadow-none max-w-full">
+<Card.Root class="w-full min-w-0 max-w-full gap-1 rounded-md p-2 shadow-none">
 	<Card.Header class="p-2">
 		<div class="flex items-center gap-2">
 			<Input placeholder="Search..." bind:value={paginationState.search} class="w-2xs" />
@@ -101,7 +101,7 @@ Example Usage
 			>
 		</div>
 	</Card.Header>
-	<Card.Content class="p-2">
+	<Card.Content class="min-w-0 p-2">
 		<Table.Root>
 			<Table.Header>
 				<Table.Row>

@@ -6,6 +6,7 @@
 	import { untrack } from 'svelte';
 	import { toast } from 'svelte-sonner';
 	import type { productsProducttype } from '$lib/server/schema';
+	import { enterToNext } from '$lib/actions/enterToNext';
 
 	interface Props {
 		productType?: typeof productsProducttype.$inferSelect | null;
@@ -33,6 +34,7 @@
 </script>
 
 <form
+	use:enterToNext
 	{...formFunction.enhance(async (form) => {
 		try {
 			if (await form.submit()) {

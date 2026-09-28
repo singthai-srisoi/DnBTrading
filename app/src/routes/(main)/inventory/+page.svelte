@@ -16,7 +16,8 @@
 
 	import { toast } from 'svelte-sonner';
 	import type { inventoriesInventory } from '$lib/server/schema';
-	// import VehicleForm from './VehicleForm.svelte';
+	import InventoryForm from './InventoryForm.svelte';
+	import { formatNum } from '$lib/helper/formatter';
 
 	type Columns = keyof typeof inventoriesInventory.$inferSelect;
 	// Date	Vehicle	Driver	Supplier	Customer Ticket No	Supplier Qty	Customer	Product	Ticket No	DO	Weight In	Weight Out	Factory Nett	Nett	Deduction	Bucket	Remark	Unit
@@ -32,17 +33,17 @@
 		{ key: 'driverId', label: 'Driver', sortable: true, value: (item: any) => (item.driverName ? `${item.driverName}` : '-') },
 		{ key: 'supplierId', label: 'Supplier', sortable: true, value: (item: any) => (item.supplierName ? `${item.supplierName}` : '-') },
 		{ key: 'customerTicketNo', label: 'Customer Ticket No', sortable: true },
-		{ key: 'supplierQty', label: 'Supplier Qty', sortable: true },
+		{ key: 'supplierQty', label: 'Supplier Qty', sortable: true, value: (item: any) => formatNum(item.supplierQty) },
 		{ key: 'customerId', label: 'Customer', sortable: true, value: (item: any) => (item.customerName ? `${item.customerName}` : '-') },
-		{ key: 'productId', label: 'Product', sortable: true },
+		{ key: 'productId', label: 'Product', sortable: true, value: (item: any) => (item.productName ? `${item.productName}` : '-') },
 		{ key: 'ticketNo', label: 'Ticket No', sortable: true },
 		{ key: 'do', label: 'DO', sortable: true },
-		{ key: 'weightIn', label: 'Weight In', sortable: true },
-		{ key: 'weightOut', label: 'Weight Out', sortable: true },
-		{ key: 'factoryNett', label: 'Factory Nett', sortable: true },
-		{ key: 'nett', label: 'Nett', sortable: true },
-		{ key: 'deduction', label: 'Deduction', sortable: true },
-		{ key: 'bucket', label: 'Bucket', sortable: true },
+		{ key: 'weightIn', label: 'Weight In', sortable: true, value: (item: any) => formatNum(item.weightIn) },
+		{ key: 'weightOut', label: 'Weight Out', sortable: true, value: (item: any) => formatNum(item.weightOut) },
+		{ key: 'factoryNett', label: 'Factory Nett', sortable: true, value: (item: any) => formatNum(item.factoryNett) },
+		{ key: 'nett', label: 'Nett', sortable: true, value: (item: any) => formatNum(item.nett) },
+		{ key: 'deduction', label: 'Deduction', sortable: true, value: (item: any) => formatNum(item.deduction) },
+		{ key: 'bucket', label: 'Bucket', sortable: true, value: (item: any) => formatNum(item.bucket) },
 		{ key: 'remark', label: 'Remark', sortable: true },
 		{ key: 'unit', label: 'Unit', sortable: true },
 		{ key: 'actions', label: 'Actions', sortable: false, action: true }
@@ -73,7 +74,7 @@
 		deleting = true;
 		try {
 			await deleteInventory(deleteTarget.id);
-			toast.success('Vehicle deleted successfully!');
+			toast.success('Inventory deleted successfully!');
 			getInventories(paginationState).refresh();
 			deleteTarget = null;
 		} catch (error) {
@@ -99,15 +100,15 @@
 
 <h1>Vehicles</h1>
 
-<!-- <Card.Root class="rounded-md">
+<Card.Root class="rounded-md">
 	<Card.Content>
-		<VehicleForm
+		<InventoryForm
 			submited={() => {
-				getVehicles(paginationState).refresh();
+				getInventories(paginationState).refresh();
 			}}
 		/>
 	</Card.Content>
-</Card.Root> -->
+</Card.Root>
 
 <DataTableGeneric {result} bind:paginationState {columns}>
 	{#snippet filters(paginationState)}
@@ -155,7 +156,7 @@
 	{/snippet}
 </DataTableGeneric>
 
-<!-- {#if editInventory}
+{#if editInventory}
 	<Dialog.Root
 		open={editInventory != null}
 		onOpenChange={(open) => {
@@ -164,11 +165,11 @@
 	>
 		<Dialog.Content class="rounded-md sm:max-w-2xl">
 			{#key editInventory.id}
-				<VehicleForm
-					vehicle={editInventory}
+				<InventoryForm
+					inventory={editInventory}
 					cancel={() => (editInventory = null)}
 					submited={() => {
-						getVehicles(paginationState).refresh();
+						getInventories(paginationState).refresh();
 						editInventory = null;
 					}}
 				/>
@@ -185,9 +186,10 @@
 >
 	<AlertDialog.Content>
 		<AlertDialog.Header>
-			<AlertDialog.Title>Delete vehicle?</AlertDialog.Title>
+			<AlertDialog.Title>Delete inventory?</AlertDialog.Title>
 			<AlertDialog.Description>
-				This will permanently delete vehicle "{deleteTarget?.regNo}". This action cannot be undone.
+				This will permanently delete inventory ticket "{deleteTarget?.ticketNo}". This action
+				cannot be undone.
 			</AlertDialog.Description>
 		</AlertDialog.Header>
 		<AlertDialog.Footer>
@@ -204,4 +206,4 @@
 			</AlertDialog.Action>
 		</AlertDialog.Footer>
 	</AlertDialog.Content>
-</AlertDialog.Root> -->
+</AlertDialog.Root>

@@ -9,6 +9,7 @@
 	import type { productsProduct } from '$lib/server/schema';
 	import ComboBox from '$lib/components/ComboBox.svelte';
 	import { value } from 'valibot';
+	import { enterToNext } from '$lib/actions/enterToNext';
 
 	interface Props {
 		product?: typeof productsProduct.$inferSelect | null;
@@ -61,6 +62,7 @@
 </script>
 
 <form
+	use:enterToNext
 	{...formFunction.enhance(async (form) => {
 		try {
 			if (await form.submit()) {
@@ -127,6 +129,8 @@
 			<Field.Label for={`${fieldId}-expensesItemId`}>Expense Item</Field.Label>
 			<input {...formFunction.fields.typeId.as('text')} value={productTypeId_ ?? ''} hidden />
 			<ComboBox
+				enterNavigation
+				allowEmpty
 				choices={productTypeOptions}
 				bind:value={productTypeId_}
 				placeholder="Select expense item..."

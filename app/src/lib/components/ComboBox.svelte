@@ -12,12 +12,55 @@
 		value: any;
 		placeholder?: string;
 		class?: string;
+		enterNavigation?: boolean;
+		allowEmpty?: boolean;
 	}
 
-	let { choices, value = $bindable(), placeholder = 'Select...', class: className }: Props = $props();
+	let {
+		choices,
+		value = $bindable(),
+		placeholder = 'Select...',
+		class: className,
+		enterNavigation = false,
+		allowEmpty = false
+	}: Props = $props();
 
 	let open = $state(false);
 	let triggerRef = $state<HTMLButtonElement>(null!);
+	let searchRef = $state<HTMLInputElement>(null!);
+	let contentRef = $state<HTMLDivElement>(null!);
+	let search = $state('');
+	let advanceOnClose = false;
+
+	function onSearchKeydown(event: KeyboardEvent) {
+		if (
+			!enterNavigation ||
+			event.key !== 'Enter' ||
+			event.isComposing ||
+			event.keyCode === 229 ||
+			event.shiftKey ||
+			event.ctrlKey ||
+			event.altKey ||
+			event.metaKey
+		)
+			return;
+		event.preventDefault();
+		event.stopPropagation();
+		if (event.repeat) return;
+		if (!search.trim() && allowEmpty) {
+			value = '';
+			closeAndFocusTrigger();
+			return;
+		}
+		const first = Array.from(
+			contentRef.querySelectorAll<HTMLElement>('[data-slot="command-item"]')
+		).find(
+			(item) =>
+				item.getAttribute('data-disabled') !== 'true' &&
+				item.checkVisibility({ visibilityProperty: true })
+		);
+		first?.click();
+	}
 
 	const selectedValue = $derived(choices.find((f) => f.value === value)?.label);
 
@@ -25,6 +68,11 @@
 	// an item from the list so users can continue navigating the
 	// rest of the form with the keyboard.
 	function closeAndFocusTrigger() {
+		if (enterNavigation) {
+			advanceOnClose = true;
+			open = false;
+			return;
+		}
 		open = false;
 		tick().then(() => {
 			triggerRef.focus();
@@ -32,7 +80,13 @@
 	}
 </script>
 
-<Popover.Root bind:open>
+<Popover.Root
+	bind:open
+	onOpenChange={() => {
+		// Reset before the command list mounts, not in the later autofocus callback.
+		search = '';
+	}}
+>
 	<Popover.Trigger bind:ref={triggerRef}>
 		{#snippet child({ props })}
 			<Button
@@ -40,6 +94,8 @@
 				variant="outline"
 				class={cn('w-full justify-between', className)}
 				role="combobox"
+				type="button"
+				data-enter-combobox={enterNavigation ? '' : undefined}
 				aria-expanded={open}
 			>
 				<span class="truncate">{selectedValue || placeholder}</span>
@@ -47,9 +103,25 @@
 			</Button>
 		{/snippet}
 	</Popover.Trigger>
-	<Popover.Content class={cn('w-62.5 p-0', className)}>
+	<Popover.Content
+		bind:ref={contentRef}
+		class={cn('w-62.5 p-0', className)}
+		onkeydowncapture={onSearchKeydown}
+		onOpenAutoFocus={(event) => {
+			if (!enterNavigation) return;
+			event.preventDefault();
+			tick().then(() => searchRef?.focus());
+		}}
+		onCloseAutoFocus={(event) => {
+			if (!advanceOnClose) return;
+			event.preventDefault();
+			advanceOnClose = false;
+			triggerRef.focus();
+			triggerRef.dispatchEvent(new CustomEvent('enter-to-next', { bubbles: true }));
+		}}
+	>
 		<Command.Root>
-			<Command.Input placeholder="Search branch..." />
+			<Command.Input bind:ref={searchRef} bind:value={search} placeholder="Search options..." />
 			<Command.List>
 				<Command.Empty>No options found.</Command.Empty>
 				<Command.Group value="choices">

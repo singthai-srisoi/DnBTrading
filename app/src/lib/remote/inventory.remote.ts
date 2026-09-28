@@ -4,6 +4,7 @@ import { alias } from 'drizzle-orm/pg-core';
 import * as v from 'valibot';
 
 import { db } from '$lib/server/db';
+import { lastSelectedUnit } from '$lib/server/lastSelectedUnit';
 import {
 	inventoriesInventory,
 	personPerson,
@@ -142,10 +143,10 @@ const inventoryInsertFormSchema = v.object({
 	supplierQty: v.pipe(v.number()),
 	ticketNo: v.pipe(v.string(), v.minLength(1)),
 	do: v.pipe(v.string(), v.minLength(1)),
-	weightIn: v.pipe(v.number()),
-	weightOut: v.pipe(v.number()),
-	factoryNett: v.optional(v.pipe(v.number())),
-	deduction: v.optional(v.pipe(v.number())),
+	weightIn: v.pipe(v.number(), v.minValue(1)),
+	weightOut: v.pipe(v.number(), v.minValue(1)),
+	factoryNett: v.optional(v.pipe(v.number(), v.minValue(1))),
+	deduction: v.optional(v.pipe(v.number(), v.minValue(1))),
 	bucket: v.optional(v.pipe(v.number())),
 	remark: v.optional(v.pipe(v.string())),
 	customerId: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1))),
@@ -153,14 +154,17 @@ const inventoryInsertFormSchema = v.object({
 	productId: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1))),
 	supplierId: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1))),
 	vehicleId: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1))),
-	nett: v.optional(v.pipe(v.number())),
-	unit: v.pipe(v.string(), v.minLength(1))
+	nett: v.optional(v.pipe(v.number(), v.minValue(1))),
+	unit: v.pipe(unit, v.minLength(1))
 });
 
 export const insertInventory = form(inventoryInsertFormSchema, async (inventory) => {
 	requireAuthenticatedUser();
-	let [res] = await db.insert(inventoriesInventory).values(inventory).returning();
-	return res;
+	return db.transaction(async (tx) => {
+		const [res] = await tx.insert(inventoriesInventory).values(inventory).returning();
+		await lastSelectedUnit(tx, inventory.unit);
+		return res;
+	});
 });
 
 const inventoryUpdateFormSchema = v.object({
@@ -170,10 +174,10 @@ const inventoryUpdateFormSchema = v.object({
 	supplierQty: v.pipe(v.number()),
 	ticketNo: v.pipe(v.string(), v.minLength(1)),
 	do: v.pipe(v.string(), v.minLength(1)),
-	weightIn: v.pipe(v.number()),
-	weightOut: v.pipe(v.number()),
-	factoryNett: v.optional(v.pipe(v.number())),
-	deduction: v.optional(v.pipe(v.number())),
+	weightIn: v.pipe(v.number(), v.minValue(1)),
+	weightOut: v.pipe(v.number(), v.minValue(1)),
+	factoryNett: v.optional(v.pipe(v.number(), v.minValue(1))),
+	deduction: v.optional(v.pipe(v.number(), v.minValue(1))),
 	bucket: v.optional(v.pipe(v.number())),
 	remark: v.optional(v.pipe(v.string())),
 	customerId: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1))),
@@ -181,8 +185,8 @@ const inventoryUpdateFormSchema = v.object({
 	productId: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1))),
 	supplierId: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1))),
 	vehicleId: v.optional(v.pipe(v.number(), v.integer(), v.minValue(1))),
-	nett: v.optional(v.pipe(v.number())),
-	unit: v.pipe(v.string(), v.minLength(1))
+	nett: v.optional(v.pipe(v.number(), v.minValue(1))),
+	unit: v.pipe(unit, v.minLength(1))
 });
 
 export const updateInventory = form(
@@ -210,32 +214,35 @@ export const updateInventory = form(
 	}) => {
 		requireAuthenticatedUser();
 
-		let [res] = await db
-			.update(inventoriesInventory)
-			.set({
-				date,
-				customerTicketNo,
-				supplierQty,
-				ticketNo,
-				do: do_,
-				weightIn,
-				weightOut,
-				factoryNett,
-				deduction,
-				bucket,
-				remark,
-				customerId,
-				driverId,
-				productId,
-				supplierId,
-				vehicleId,
-				nett,
-				unit
-			})
-			.where(eq(inventoriesInventory.id, id))
-			.returning();
+		return db.transaction(async (tx) => {
+			let [res] = await tx
+				.update(inventoriesInventory)
+				.set({
+					date,
+					customerTicketNo,
+					supplierQty,
+					ticketNo,
+					do: do_,
+					weightIn,
+					weightOut,
+					factoryNett,
+					deduction,
+					bucket,
+					remark,
+					customerId,
+					driverId,
+					productId,
+					supplierId,
+					vehicleId,
+					nett,
+					unit
+				})
+				.where(eq(inventoriesInventory.id, id))
+				.returning();
 
-		return res;
+			if (res) await lastSelectedUnit(tx, unit);
+			return res;
+		});
 	}
 );
 
