@@ -5,6 +5,7 @@ import { sveltekitCookies } from 'better-auth/svelte-kit';
 import { getRequestEvent } from '$app/server';
 import { db } from '$lib/server/db';
 import * as schema from '$lib/server/schema/auth.schema';
+import { admin } from 'better-auth/plugins';
 
 export const auth = betterAuth({
 	baseURL: env.ORIGIN,
@@ -12,6 +13,6 @@ export const auth = betterAuth({
 	database: drizzleAdapter(db, { provider: 'pg', schema }),
 	emailAndPassword: { enabled: true },
 	plugins: [
-		sveltekitCookies(getRequestEvent) // make sure this is the last plugin in the array
+		admin(), sveltekitCookies(getRequestEvent) // make sure this is the last plugin in the array
 	]
 });
