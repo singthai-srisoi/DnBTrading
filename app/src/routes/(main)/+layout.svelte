@@ -114,7 +114,7 @@
 							</Sheet.Trigger>
 							<Sheet.Content side="left" class="p-0">
 								<div class="border-b px-6 py-5">
-									<p class="text-lg font-semibold">Jengka Oil Palm</p>
+									<p class="text-lg font-semibold">D&B Trading</p>
 									<p class="mt-1 text-sm text-muted-foreground">Agribusiness administration</p>
 								</div>
 								<nav class="space-y-1 px-4 py-4">

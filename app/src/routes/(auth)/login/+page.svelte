@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-	<title>Log In - Jengka Oil Palm</title>
+	<title>Log In - D&B Trading</title>
 </svelte:head>
 
 <div class="flex min-h-screen items-center justify-center bg-muted/40 px-4 py-12 sm:px-6 lg:px-8">
@@ -34,7 +34,7 @@
 			<!-- <div class="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md">
 				<Building2Icon class="size-6" />
 			</div> -->
-			<h1 class="mt-4 text-2xl font-bold tracking-tight">Jengka Oil Palm</h1>
+			<h1 class="mt-4 text-2xl font-bold tracking-tight">D&B Trading</h1>
 		</div>
 
 		<!-- Card Container -->
