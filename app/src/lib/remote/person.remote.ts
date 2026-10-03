@@ -103,6 +103,23 @@ export const insertPerson = form(personInsertFormSchema, async (person) => {
 	return res;
 });
 
+const insertDriverInstanceSchema = v.object({
+	value: v.pipe(v.string(), v.trim(), v.minLength(1)),
+	type: v.pipe(personType, v.minLength(1))
+});
+
+export const insertDriverInstance = command(
+	insertDriverInstanceSchema,
+	async ({ value, type }) => {
+		requireAuthenticatedUser();
+		const [driver] = await db
+			.insert(personPerson)
+			.values({ name: value, code: value, phone: '', ic: '', type })
+			.returning();
+		return driver;
+	}
+);
+
 const personUpdateFormSchema = v.object({
 	id: v.pipe(v.number(), v.integer(), v.minValue(1)),
 	name: v.pipe(v.string(), v.minLength(1)),

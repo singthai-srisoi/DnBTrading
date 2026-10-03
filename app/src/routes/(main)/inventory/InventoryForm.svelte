@@ -15,6 +15,7 @@
 	import { listProductOptions } from '$lib/remote/product.remote';
 	import ComboBox from '$lib/components/ComboBox.svelte';
 	import Decimal from 'decimal.js';
+	import PersonComboBox from './PersonComboBox.svelte';
 
 	interface Props {
 		inventory?: typeof inventoriesInventory.$inferSelect | null;
@@ -94,23 +95,23 @@
 	};
 	let vehicleOptions = $derived(await vehicleOptionsQuery());
 
-	let driverOptionsQuery = async () => {
-		let drivers = await listPersonOptions({ type: 'driver' });
-		return drivers.map((driver) => ({
-			value: driver.id,
-			label: `${driver.code} - ${driver.name}`
-		}));
-	};
-	let driverOptions = $derived(await driverOptionsQuery());
+	// let driverOptionsQuery = async () => {
+	// 	let drivers = await listPersonOptions({ type: 'driver' });
+	// 	return drivers.map((driver) => ({
+	// 		value: driver.id,
+	// 		label: `${driver.code} - ${driver.name}`
+	// 	}));
+	// };
+	// let driverOptions = $derived(await driverOptionsQuery());
 
-	let supplierOptionsQuery = async () => {
-		let suppliers = await listPersonOptions({ type: 'supplier' });
-		return suppliers.map((supplier) => ({
-			value: supplier.id,
-			label: `${supplier.code} - ${supplier.name}`
-		}));
-	};
-	let supplierOptions = $derived(await supplierOptionsQuery());
+	// let supplierOptionsQuery = async () => {
+	// 	let suppliers = await listPersonOptions({ type: 'supplier' });
+	// 	return suppliers.map((supplier) => ({
+	// 		value: supplier.id,
+	// 		label: `${supplier.code} - ${supplier.name}`
+	// 	}));
+	// };
+	// let supplierOptions = $derived(await supplierOptionsQuery());
 
 	let customerOptionsQuery = async () => {
 		let customers = await listPersonOptions({ type: 'customer' });
@@ -320,14 +321,15 @@
 		<Field.Field class="grid grid-cols-8 gap-2">
 			<Field.Label for={`${fieldId}-driverId`}>Driver</Field.Label>
 			<input {...formFunction.fields.driverId.as('number')} value={driverId_ ?? ''} hidden />
-			<ComboBox
+			<!-- <ComboBox
 				choices={driverOptions}
 				enterNavigation
 				allowEmpty={false}
 				bind:value={driverId_}
 				placeholder="Select Driver"
 				class="col-span-5"
-			/>
+			/> -->
+			<PersonComboBox type="driver" bind:value={driverId_} />
 			{#each formFunction.fields.driverId.issues() as issue}
 				<Field.Error>{issue.message}</Field.Error>
 			{/each}
@@ -337,14 +339,15 @@
 		<Field.Field class="grid grid-cols-8 gap-2">
 			<Field.Label for={`${fieldId}-supplierId`}>Supplier</Field.Label>
 			<input {...formFunction.fields.supplierId.as('number')} value={supplierId_ ?? ''} hidden />
-			<ComboBox
+			<!-- <ComboBox
 				choices={supplierOptions}
 				enterNavigation
 				allowEmpty={false}
 				bind:value={supplierId_}
 				placeholder="Select Supplier"
 				class="col-span-5"
-			/>
+			/> -->
+			<PersonComboBox type="supplier" bind:value={supplierId_} />
 			{#each formFunction.fields.supplierId.issues() as issue}
 				<Field.Error>{issue.message}</Field.Error>
 			{/each}

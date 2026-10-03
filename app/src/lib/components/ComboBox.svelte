@@ -6,15 +6,31 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { cn } from '$lib/utils.js';
+	import type { CommandState } from 'bits-ui';
+
+	type choice = { value: any; label: string };
 
 	interface Props {
 		id?: string;
-		choices: { value: any; label: string }[];
+		choices: choice[];
 		value: any;
 		placeholder?: string;
 		class?: string;
 		enterNavigation?: boolean;
 		allowEmpty?: boolean;
+		emptyText?: string;
+		commandState?: Readonly<CommandState>;
+		onStateChange?: (state: Readonly<CommandState>) => void;
+		oninput?: (
+			event: Event & {
+				currentTarget: EventTarget & HTMLInputElement;
+			}
+		) => void;
+		onkeydown?: (
+			event: KeyboardEvent & {
+				currentTarget: EventTarget & HTMLInputElement;
+			}
+		) => void;
 	}
 
 	let {
@@ -23,8 +39,13 @@
 		value = $bindable(),
 		placeholder = 'Select...',
 		class: className,
+		emptyText = 'No options found',
 		enterNavigation = false,
-		allowEmpty = false
+		allowEmpty = false,
+		commandState = $bindable(),
+		onStateChange,
+		oninput,
+		onkeydown
 	}: Props = $props();
 
 	let open = $state(false);
@@ -108,7 +129,6 @@
 	<Popover.Content
 		bind:ref={contentRef}
 		class={cn('w-62.5 p-0', className)}
-		onkeydowncapture={onSearchKeydown}
 		onOpenAutoFocus={(event) => {
 			if (!enterNavigation) return;
 			event.preventDefault();
@@ -122,10 +142,27 @@
 			triggerRef.dispatchEvent(new CustomEvent('enter-to-next', { bubbles: true }));
 		}}
 	>
-		<Command.Root>
-			<Command.Input bind:ref={searchRef} bind:value={search} placeholder="Search options..." />
+		<Command.Root
+			filter={(label, query) => (label.toLowerCase().includes(query.toLowerCase()) ? 1 : 0)}
+			onStateChange={(state) => {
+				onStateChange?.(state);
+				commandState = state;
+			}}
+		>
+			<Command.Input
+				bind:ref={searchRef}
+				bind:value={search}
+				oninput={(event) => {
+					oninput?.(event);
+				}}
+				onkeydown={(event) => {
+					onkeydown?.(event);
+					onSearchKeydown(event);
+				}}
+				placeholder="Search options..."
+			/>
 			<Command.List>
-				<Command.Empty>No options found.</Command.Empty>
+				<Command.Empty>{emptyText}</Command.Empty>
 				<Command.Group value="choices">
 					{#each choices as choice (choice.value !== undefined ? String(choice.value) : choice.label)}
 						<Command.Item
